@@ -1,8 +1,4 @@
-fn main() {
-    println!("{}", solve(4_000_000));
-}
-
-fn solve(hi: i32) -> i32 {
+pub fn solve(hi: u32) -> u32 {
     let mut prev = 0;
     let mut cur = 1;
     let mut total = 0;
