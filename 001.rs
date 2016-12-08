@@ -1,9 +1,7 @@
 fn main() {
-    let mut total = 0;
-    for i in 1..1000 {
-        if i%3 == 0 || i%5 == 0 {
-            total += i;
-        }
-    }
-    println!("{}", total);
+    println!("{}", solve(1000));
+}
+
+fn solve(n: i32) -> i32 {
+    (1..n).filter(|n| n%3 == 0 || n%5 == 0).fold(0, |acc, n| acc + n)
 }
