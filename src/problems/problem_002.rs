@@ -1,14 +1,29 @@
 pub fn solve(hi: u32) -> u32 {
-    let mut prev = 0;
-    let mut cur = 1;
-    let mut total = 0;
-    while cur < hi {
-        if cur % 2 == 0 {
-            total += cur;
-        }
-        let tmp = cur;
-        cur += prev;
-        prev = tmp;
+    FibonacciElement::start().into_iter()
+        .take_while(|&n| n < hi)
+        .filter(|&n| n%2 == 0)
+        .fold(0, |a, b| a + b)
+}
+
+struct FibonacciElement {
+    cur: u32,
+    prev: u32
+}
+
+impl FibonacciElement {
+    fn start() -> FibonacciElement {
+        FibonacciElement { cur: 1, prev: 0 }
     }
-    total
+}
+
+impl Iterator for FibonacciElement {
+    type Item = u32;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let tmp = self.cur;
+        self.cur += self.prev;
+        self.prev = tmp;
+
+        Some(tmp)
+    }
 }
