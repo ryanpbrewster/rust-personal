@@ -10,8 +10,15 @@ fn primes_iter() {
 }
 
 #[test]
+fn primes_iter_correctness() {
+	assert_eq!(
+		primes::primes().take_while(|&n| n < 1_000).collect::<Vec<_>>(),
+		primes::sieve(1_000));
+}
+
+#[test]
 fn primes_iter_speed() {
 	assert_eq!(
-		primes::primes().nth(10_000),
-		Some(104743));
+		primes::primes().nth(1_000_000),
+		Some(15485867));
 }

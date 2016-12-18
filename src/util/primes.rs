@@ -2,7 +2,7 @@ pub fn sieve(hi: u32) -> Vec<u32> {
     let mut is_prime_vec : Vec<bool> = vec![true; hi as usize];
     for p in 2..hi {
         if is_prime_vec[p as usize] {
-            for k in p..hi/p {
+            for k in p..(hi+p-1)/p {
                 is_prime_vec[(k*p) as usize] = false;
             }
         }
@@ -11,27 +11,46 @@ pub fn sieve(hi: u32) -> Vec<u32> {
 }
 
 pub struct Primes {
-    ps: Vec<u32>,
+    sieve_arr: Vec<bool>,
+    idx: usize,
+}
+
+impl Primes {
+    fn extend_sieve(&mut self) {
+        let new_len = 2*self.sieve_arr.len();
+        self.sieve_arr.resize(new_len, true);
+
+        for i in (2..) .take_while(|&i| i*i < new_len) {
+            if self.sieve_arr[i] {
+                for j in (i..).take_while(|&j| i*j < new_len) {
+                    self.sieve_arr[i*j] = false;
+                }
+            }
+        }
+    }
 }
 
 impl Iterator for Primes {
     type Item = u32;
     fn next(&mut self) -> Option<Self::Item> {
-        let next_prime = match self.ps.last() {
-            None => 2,
-            Some(hi) =>
-                (hi+1..)
-                    .find(|n| !self.ps.iter().any(|p| n%p == 0))
-                    .unwrap()
-        };
-        self.ps.push(next_prime);
-        Some(next_prime)
+        self.idx += 1;
+        loop {
+            if self.idx >= self.sieve_arr.len() {
+                self.extend_sieve();
+            }
+            if self.sieve_arr[self.idx] {
+                break;
+            }
+            self.idx += 1;
+        }
+        Some(self.idx as u32)
     }
 }
 
 pub fn primes() -> Primes {
     Primes {
-        ps: Vec::new(),
+        sieve_arr: vec![false, false, true],
+        idx: 1,
     }
 }
 
