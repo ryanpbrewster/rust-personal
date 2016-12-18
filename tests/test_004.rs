@@ -4,7 +4,7 @@ use project_euler::problems::problem_004;
 
 #[test]
 fn small() {
-	assert_eq!(problem_004::solve(1), 9);
+	assert_eq!(problem_004::solve(1), 81);
 }
 
 #[test]
