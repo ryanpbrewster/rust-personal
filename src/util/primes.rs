@@ -11,11 +11,28 @@ pub fn sieve(hi: u32) -> Vec<u32> {
 }
 
 pub struct Primes {
-    cur: u32,
+    ps: Vec<u32>,
+}
+
+impl Iterator for Primes {
+    type Item = u32;
+    fn next(&mut self) -> Option<Self::Item> {
+        let next_prime = match self.ps.last() {
+            None => 2,
+            Some(hi) =>
+                (hi+1..)
+                    .find(|n| !self.ps.iter().any(|p| n%p == 0))
+                    .unwrap()
+        };
+        self.ps.push(next_prime);
+        Some(next_prime)
+    }
 }
 
 pub fn primes() -> Primes {
-    Primes { cur: 1 }
+    Primes {
+        ps: Vec::new(),
+    }
 }
 
 fn trial_division(n: u32) -> bool {
@@ -34,17 +51,6 @@ fn trial_division(n: u32) -> bool {
         i += 1;
     }
     true
-}
-
-impl Iterator for Primes {
-    type Item = u32;
-    fn next(&mut self) -> Option<Self::Item> {
-        self.cur += 1;
-        while !trial_division(self.cur) {
-            self.cur += 1;
-        }
-        Some(self.cur)
-    }
 }
 
 pub struct Factors {
