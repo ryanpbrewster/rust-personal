@@ -54,6 +54,7 @@ pub fn primes() -> Primes {
     }
 }
 
+#[allow(dead_code)]
 fn trial_division(n: u32) -> bool {
     if n == 2 {
         return true;
