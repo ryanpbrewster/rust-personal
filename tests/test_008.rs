@@ -1,8 +1,13 @@
 extern crate project_euler;
 
+#[macro_use]
+extern crate lazy_static;
+
+
 use project_euler::problems::problem_008;
 
-static str: &'static str =
+lazy_static! {
+    static ref NUMBERS: Vec<i32> =
         "\
         73167176531330624919225119674426574742355349194934\
         96983520312774506326239578318016984801869478851843\
@@ -24,16 +29,15 @@ static str: &'static str =
         84580156166097919133875499200524063689912560717606\
         05886116467109405077541002256983155200055935729725\
         71636269561882670428252483600823257530420752963450\
-        ";
+        ".chars().map(|c| c.to_digit(10).unwrap() as i32).collect::<Vec<i32>>();
+}
 
 #[test]
 fn small() {
-    let numbers = vec![1, 2, 3];
-	assert_eq!(problem_008::solve(numbers, 4), 5832);
+	assert_eq!(problem_008::solve(&*NUMBERS, 4), 5832);
 }
 
 #[test]
 fn main() {
-    let numbers = vec![1, 2, 3];
-	assert_eq!(problem_008::solve(numbers, 13), -1);
+	assert_eq!(problem_008::solve(&*NUMBERS, 13), 23514624000);
 }

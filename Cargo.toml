@@ -5,3 +5,4 @@ authors = ["Ryan Brewster <ryanpbrewster@gmail.com>"]
 
 [dependencies]
 num = "*"
+lazy_static = "*"
