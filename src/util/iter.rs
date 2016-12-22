@@ -27,15 +27,3 @@ impl <A, B> Iterator for Cross<A, B>
         }
     }
 }
-
-pub struct Chunks<T> {
-    cur: Vec<T>,
-    underlying: Iterator<Item=T>,
-}
-
-pub fn chunks<T>(iter: Iterator<Item=T>, n: usize) -> Chunks<T> {
-    Chunks {
-        cur: iter.take(n).collect::<Vec<T>>(),
-        underlying: iter,
-    }
-}
