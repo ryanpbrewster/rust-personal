@@ -16,6 +16,12 @@ pub struct Primes {
 }
 
 impl Primes {
+    pub fn all() -> Primes {
+        Primes {
+            sieve_arr: vec![false, false, true],
+            idx: 1,
+        }
+    }
     fn extend_sieve(&mut self) {
         let new_len = 2*self.sieve_arr.len();
         self.sieve_arr.resize(new_len, true);
@@ -45,32 +51,6 @@ impl Iterator for Primes {
         }
         Some(self.idx as u32)
     }
-}
-
-pub fn primes() -> Primes {
-    Primes {
-        sieve_arr: vec![false, false, true],
-        idx: 1,
-    }
-}
-
-#[allow(dead_code)]
-fn trial_division(n: u32) -> bool {
-    if n == 2 {
-        return true;
-    }
-    if n%2 == 0 {
-        return false;
-    }
-
-    let mut i = 3;
-    while i*i <= n {
-        if n%i == 0 {
-            return false;
-        }
-        i += 1;
-    }
-    true
 }
 
 pub struct Factors {
