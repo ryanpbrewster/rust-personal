@@ -1,13 +1,14 @@
 pub fn solve(hi: u32) -> u32 {
-    FibonacciElement::start().into_iter()
+    FibonacciElement::start()
+        .into_iter()
         .take_while(|&n| n < hi)
-        .filter(|&n| n%2 == 0)
+        .filter(|&n| n % 2 == 0)
         .fold(0, |a, b| a + b)
 }
 
 struct FibonacciElement {
     cur: u32,
-    prev: u32
+    prev: u32,
 }
 
 impl FibonacciElement {

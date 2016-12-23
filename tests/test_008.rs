@@ -34,10 +34,10 @@ lazy_static! {
 
 #[test]
 fn small() {
-	assert_eq!(problem_008::solve(&*NUMBERS, 4), 5832);
+    assert_eq!(problem_008::solve(&*NUMBERS, 4), 5832);
 }
 
 #[test]
 fn main() {
-	assert_eq!(problem_008::solve(&*NUMBERS, 13), 23514624000);
+    assert_eq!(problem_008::solve(&*NUMBERS, 13), 23514624000);
 }

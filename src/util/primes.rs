@@ -1,9 +1,9 @@
 pub fn sieve(hi: u32) -> Vec<u32> {
-    let mut is_prime_vec : Vec<bool> = vec![true; hi as usize];
+    let mut is_prime_vec: Vec<bool> = vec![true; hi as usize];
     for p in 2..hi {
         if is_prime_vec[p as usize] {
-            for k in p..(hi+p-1)/p {
-                is_prime_vec[(k*p) as usize] = false;
+            for k in p..(hi + p - 1) / p {
+                is_prime_vec[(k * p) as usize] = false;
             }
         }
     }
@@ -23,13 +23,13 @@ impl Primes {
         }
     }
     fn extend_sieve(&mut self) {
-        let new_len = 2*self.sieve_arr.len();
+        let new_len = 2 * self.sieve_arr.len();
         self.sieve_arr.resize(new_len, true);
 
-        for i in (2..) .take_while(|&i| i*i < new_len) {
+        for i in (2..).take_while(|&i| i * i < new_len) {
             if self.sieve_arr[i] {
-                for j in (i..).take_while(|&j| i*j < new_len) {
-                    self.sieve_arr[i*j] = false;
+                for j in (i..).take_while(|&j| i * j < new_len) {
+                    self.sieve_arr[i * j] = false;
                 }
             }
         }
@@ -55,7 +55,7 @@ impl Iterator for Primes {
 
 pub struct Factors {
     n: u64,
-    lo: u64
+    lo: u64,
 }
 
 pub fn factors(n: u64) -> Factors {
