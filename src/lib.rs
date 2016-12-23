@@ -5,4 +5,5 @@ pub mod util {
     pub mod iter;
     pub mod math;
     pub mod triangle;
+    pub mod coins;
 }
