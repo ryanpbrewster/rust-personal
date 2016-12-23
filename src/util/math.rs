@@ -10,7 +10,7 @@ pub fn sum_squares(n: u32) -> u32 {
 
 
 pub mod pythag {
-    #[derive(PartialEq, PartialOrd, Ord, Debug, Eq)]
+    #[derive(PartialEq, PartialOrd, Ord, Debug, Eq, Clone)]
     pub struct Triple(u32, u32, u32);
     impl Triple {
         pub fn root() -> Triple {
@@ -28,12 +28,41 @@ pub mod pythag {
             }
         }
 
+        fn scale(&mut self, scale_factor: u32) {
+            self.0 *= scale_factor;
+            self.1 *= scale_factor;
+            self.2 *= scale_factor;
+        }
+        pub fn scaled(&self, scale_factor: u32) -> Triple {
+            let mut t = self.clone();
+            t.scale(scale_factor);
+            t
+        }
+        pub fn scaled_triples(&self) -> ScaledTriples {
+            ScaledTriples {
+                primitive: self.clone(),
+                scale_factor: 1,
+            }
+        }
         pub fn branch(&self) -> (Triple, Triple, Triple) {
             let (a, b, c) = (self.0, self.1, self.2);
-            ( Triple(2*c - 2*a + b, 2*c - a + 2*b,  3*c - 2*a + 2*b)
-            , Triple(2*c + 2*a + b, 2*c + a + 2*b,  3*c + 2*a + 2*b)
-            , Triple(2*c + a - 2*b, 2*c + 2*a - b,  3*c + 2*a - 2*b)
-            )
+            (Triple(2 * c - 2 * a + b, 2 * c - a + 2 * b, 3 * c - 2 * a + 2 * b),
+             Triple(2 * c + 2 * a + b, 2 * c + a + 2 * b, 3 * c + 2 * a + 2 * b),
+             Triple(2 * c + a - 2 * b, 2 * c + 2 * a - b, 3 * c + 2 * a - 2 * b))
+        }
+    }
+
+    pub struct ScaledTriples {
+        primitive: Triple,
+        scale_factor: u32,
+    }
+
+    impl Iterator for ScaledTriples {
+        type Item = Triple;
+        fn next(&mut self) -> Option<Triple> {
+            let v = self.primitive.scaled(self.scale_factor);
+            self.scale_factor += 1;
+            Some(v)
         }
     }
 }
