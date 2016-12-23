@@ -10,3 +10,8 @@ fn small() {
 fn main() {
     assert_eq!(problem_009::solve(1_000), Some(31875000));
 }
+
+#[test]
+fn no_valid_answer() {
+    assert_eq!(problem_009::solve(999), None);
+}
