@@ -1,23 +1,29 @@
 use util::grid::Grid;
 use util::iter::Cross;
 
-pub fn solve(grid: &Grid<i32>, n: usize) -> i32 {
-    let vert = analyze(grid, n, Direction::Down);
-    let horiz = analyze(grid, n, Direction::Right);
-    let down_diag = analyze(grid, n, Direction::DownDiag);
-    let up_diag = analyze(grid, n, Direction::UpDiag);
-    vec![vert.unwrap(), horiz.unwrap(), down_diag.unwrap(), up_diag.unwrap()]
-        .iter()
-        .max()
-        .unwrap()
-        .clone()
-}
-
+#[derive(Clone, Copy)]
 enum Direction {
     Down,
     Right,
     UpDiag,
     DownDiag,
+}
+
+impl Direction {
+    fn all() -> [Direction; 4] {
+        use self::Direction::*;
+        [Down, Right, UpDiag, DownDiag]
+    }
+}
+
+
+pub fn solve(grid: &Grid<i32>, n: usize) -> i32 {
+    Direction::all()
+        .iter()
+        .flat_map(|&dir| analyze(grid, n, dir))
+        .max()
+        .unwrap()
+        .clone()
 }
 
 fn analyze(grid: &Grid<i32>, n: usize, dir: Direction) -> Option<i32> {
