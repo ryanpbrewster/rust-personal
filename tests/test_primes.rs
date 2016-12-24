@@ -13,3 +13,9 @@ fn primes_iter_correctness() {
     assert_eq!(primes::Primes::all().take_while(|&n| n < 1_000).collect::<Vec<_>>(),
                primes::sieve(1_000));
 }
+
+#[test]
+fn primes_num_divisors() {
+    // assert_eq!(primes::num_divisors(28), 6);
+    assert_eq!(primes::num_divisors(36), 9);
+}
