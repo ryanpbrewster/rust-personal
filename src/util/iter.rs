@@ -4,11 +4,13 @@ pub struct Cross<A, B> {
     b0: B,
 }
 
-pub fn cross<A: Clone, B: Clone>(a: A, b: B) -> Cross<A, B> {
-    Cross {
-        a: a.clone(),
-        b: b.clone(),
-        b0: b.clone(),
+impl <A, B> Cross<A, B> where A: Clone, B: Clone {
+    pub fn of(a: A, b: B) -> Cross<A, B> {
+        Cross {
+            a: a.clone(),
+            b: b.clone(),
+            b0: b.clone(),
+        }
     }
 }
 
