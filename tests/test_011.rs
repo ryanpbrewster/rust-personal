@@ -7,13 +7,9 @@ use std::path::Path;
 
 #[test]
 fn small() {
-    let g = Grid::new(
-                (3, 3),
-                vec![1, 2, 3,
-                     4, 5, 6,
-                     7, 8, 9]);
+    let g = Grid::new((3, 3), vec![1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-    assert_eq!(problem_011::solve(&g, 2), 8*9);
+    assert_eq!(problem_011::solve(&g, 2), 8 * 9);
 }
 
 #[test]
@@ -25,7 +21,7 @@ fn main() {
     let mut s = String::new();
     match fin.read_to_string(&mut s) {
         Err(e) => panic!("couldn't read file: {}", e),
-        Ok(_) => {},
+        Ok(_) => {}
     };
 
     let mut contents: Vec<i32> = Vec::new();

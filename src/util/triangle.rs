@@ -10,11 +10,9 @@ pub struct Triangle<T> {
     contents: Vec<T>,
 }
 
-impl <T> Triangle<T> {
+impl<T> Triangle<T> {
     pub fn new(contents: Vec<T>) -> Triangle<T> {
-        Triangle {
-            contents: contents,
-        }
+        Triangle { contents: contents }
     }
 }
 
@@ -24,7 +22,7 @@ pub struct Levels<'a, T: 'a> {
     cur_level: usize,
 }
 
-impl <'a, T> Levels<'a, T> {
+impl<'a, T> Levels<'a, T> {
     pub fn from(t: &'a Triangle<T>) -> Levels<'a, T> {
         Levels {
             source: t,
@@ -37,7 +35,7 @@ impl <'a, T> Levels<'a, T> {
 fn idx(lvl: usize) -> usize {
     lvl * (lvl + 1) / 2
 }
-impl <'a, T> Iterator for Levels<'a, T> {
+impl<'a, T> Iterator for Levels<'a, T> {
     type Item = &'a [T];
     fn next(&mut self) -> Option<Self::Item> {
         let start = idx(self.cur_level);

@@ -11,7 +11,7 @@ pub fn solve(n: u32) -> Option<u32> {
         // not just if a+b+c == n, but if any scaled version of this triple
         // may work (l*a, l*b, l*c) --> l*(a+b+c) == n --> n%(a+b+c) == 0
         if n % t.sum() == 0 {
-            return Some(t.scaled(n / t.sum()).product())
+            return Some(t.scaled(n / t.sum()).product());
         }
         for child in t.branch().filter(|ch| ch.sum() <= n) {
             q.push_back(child);

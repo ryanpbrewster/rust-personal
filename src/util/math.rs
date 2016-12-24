@@ -74,17 +74,17 @@ pub mod pythag {
 
     pub struct Branch {
         root: Triple,
-        idx: usize
+        idx: usize,
     }
     impl Iterator for Branch {
         type Item = Triple;
         fn next(&mut self) -> Option<Triple> {
             let Triple(a, b, c) = self.root;
             let t = match self.idx {
-              0 => Triple(2 * c - 2 * a + b, 2 * c - a + 2 * b, 3 * c - 2 * a + 2 * b),
-              1 => Triple(2 * c + 2 * a + b, 2 * c + a + 2 * b, 3 * c + 2 * a + 2 * b),
-              2 => Triple(2 * c + a - 2 * b, 2 * c + 2 * a - b, 3 * c + 2 * a - 2 * b),
-              _ => return None,
+                0 => Triple(2 * c - 2 * a + b, 2 * c - a + 2 * b, 3 * c - 2 * a + 2 * b),
+                1 => Triple(2 * c + 2 * a + b, 2 * c + a + 2 * b, 3 * c + 2 * a + 2 * b),
+                2 => Triple(2 * c + a - 2 * b, 2 * c + 2 * a - b, 3 * c + 2 * a - 2 * b),
+                _ => return None,
             };
             self.idx += 1;
             Some(t)
