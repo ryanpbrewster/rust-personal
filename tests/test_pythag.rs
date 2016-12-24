@@ -10,10 +10,10 @@ fn pythag_triple() {
 
 #[test]
 fn pythag_triple_tree_branch() {
-    assert_eq!(pythag::Triple::new(3, 4, 5).branch(),
-               (pythag::Triple::new(8, 15, 17),
-                pythag::Triple::new(20, 21, 29),
-                pythag::Triple::new(5, 12, 13)));
+    assert_eq!(pythag::Triple::new(3, 4, 5).branch().collect::<Vec<_>>(),
+               vec![pythag::Triple::new(8, 15, 17),
+                    pythag::Triple::new(20, 21, 29),
+                    pythag::Triple::new(5, 12, 13)]);
 }
 
 #[test]
