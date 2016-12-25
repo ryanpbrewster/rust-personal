@@ -10,11 +10,11 @@ pub fn sum_squares(n: u32) -> u32 {
     n * (n + 1) * (2 * n + 1) / 6
 }
 
-pub fn factorial(n: u32) -> u32 {
+pub fn factorial(n: u64) -> u64 {
     (2..n + 1).fold(1, |a, b| a * b)
 }
 
-pub fn choose(n: u32, k: u32) -> u32 {
+pub fn choose(n: u64, k: u64) -> u64 {
     // Observe that choose(n, k) is an integer for all n, k
     // Also observe that:
     // choose(n, k) == choose(n-1, k-1) * (n / k)
