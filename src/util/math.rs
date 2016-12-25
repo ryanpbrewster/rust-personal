@@ -1,3 +1,5 @@
+use std::cmp::min;
+
 // Sum[i, {i, 1, n}]
 pub fn sum(n: u32) -> u32 {
     n * (n + 1) / 2
@@ -6,6 +8,24 @@ pub fn sum(n: u32) -> u32 {
 // Sum[i^2, {i, 1, n}]
 pub fn sum_squares(n: u32) -> u32 {
     n * (n + 1) * (2 * n + 1) / 6
+}
+
+pub fn factorial(n: u32) -> u32 {
+    (2..n + 1).fold(1, |a, b| a * b)
+}
+
+pub fn choose(n: u32, k: u32) -> u32 {
+    // Observe that choose(n, k) is an integer for all n, k
+    // Also observe that:
+    // choose(n, k) == choose(n-1, k-1) * (n / k)
+    //              == choose(n-2, k-2) * (n-1 / k-1) * (n / k)
+    //              == choose(n-k, 0) * ... * (n-1 / k-1) * (n / k)
+    //              == 1 * (n-k+1 / 1) * (n-k+2 / 2) * (n-k+3 / 3) * ... * (n-1 / k-1) * (n / k)
+
+    // As a minor optimization, since choose(n, k) == choose(n, n-k),
+    // we can switch between them to minimize the number of multiplies.
+    let kk =  min(k, n-k);
+    (1..kk + 1).fold(1, |acc, i| acc * (n - kk + i) / i)
 }
 
 
