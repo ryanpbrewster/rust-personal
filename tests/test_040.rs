@@ -8,6 +8,11 @@ fn small() {
 }
 
 #[test]
+fn main() {
+    assert_eq!(problem_040::solve(), 210);
+}
+
+#[test]
 fn iter() {
     assert_eq!(problem_040::solve_iter(), 210);
 }

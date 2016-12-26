@@ -28,10 +28,19 @@ impl Iterator for Champernowne {
     }
 }
 
+pub fn solve() -> u32 {
+    let digits: Vec<_> = Champernowne::all().take(1_000_000).collect();
+
+    vec![1, 10, 100, 1_000, 10_000, 100_000, 1_000_000]
+        .into_iter()
+        .map(|idx| digits[idx - 1])
+        .product()
+}
+
 pub fn solve_iter() -> u32 {
     let idxs = vec![0, 1, 10, 100, 1_000, 10_000, 100_000, 1_000_000];
     let diffs: Vec<_> = idxs.windows(2).map(|w| w[1] - w[0]).collect();
 
     let mut champ = Champernowne::all();
-    diffs.into_iter().map(|diff| champ.nth(diff-1).unwrap()).product()
+    diffs.into_iter().map(|diff| champ.nth(diff - 1).unwrap()).product()
 }
