@@ -28,6 +28,34 @@ pub fn choose(n: u64, k: u64) -> u64 {
     (1..kk + 1).fold(1, |acc, i| acc * (n - kk + i) / i)
 }
 
+pub struct Digits {
+    n: u32,
+    radix: u32,
+}
+
+impl Digits {
+    pub fn of(n: u32, radix: u32) -> Digits {
+        Digits { n: n, radix: radix }
+    }
+
+    pub fn decimal(n: u32) -> Digits {
+        Digits::of(n, 10)
+    }
+}
+
+impl Iterator for Digits {
+    type Item = u32;
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.n == 0 {
+            None
+        } else {
+            let d = self.n % self.radix;
+            self.n /= self.radix;
+            Some(d)
+        }
+    }
+}
+
 
 pub mod pythag {
     #[derive(PartialEq, PartialOrd, Ord, Debug, Eq, Clone)]
