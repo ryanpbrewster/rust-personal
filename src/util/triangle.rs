@@ -24,14 +24,14 @@ impl<T> Triangle<T> {
     }
 }
 
-impl <T: Sized> Index<(usize, usize)> for Triangle<T> {
+impl<T: Sized> Index<(usize, usize)> for Triangle<T> {
     type Output = T;
     fn index(&self, (i, j): (usize, usize)) -> &Self::Output {
         &self.contents[idx(i) + j]
     }
 }
 
-impl <T: Sized> IndexMut<(usize, usize)> for Triangle<T> {
+impl<T: Sized> IndexMut<(usize, usize)> for Triangle<T> {
     fn index_mut(&mut self, (i, j): (usize, usize)) -> &mut T {
         &mut self.contents[idx(i) + j]
     }

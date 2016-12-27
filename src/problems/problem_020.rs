@@ -9,7 +9,7 @@ pub fn solve(n: u32) -> u32 {
 }
 
 fn big_factorial(n: u32) -> BigUint {
-    (2..n+1).map(|i| BigUint::from(i)).fold(BigUint::one(), |a, b| a.mul(b))
+    (2..n + 1).map(|i| BigUint::from(i)).fold(BigUint::one(), |a, b| a.mul(b))
 }
 
 fn digit_sum(b: BigUint) -> u32 {

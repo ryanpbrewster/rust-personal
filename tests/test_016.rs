@@ -7,7 +7,8 @@ use self::num::pow::pow;
 
 #[test]
 fn small() {
-    assert_eq!(problem_016::solve(BigUint::from(123456u32)), 1 + 2 + 3 + 4 + 5 + 6);
+    assert_eq!(problem_016::solve(BigUint::from(123456u32)),
+               1 + 2 + 3 + 4 + 5 + 6);
 }
 
 #[test]

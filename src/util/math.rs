@@ -24,7 +24,7 @@ pub fn choose(n: u64, k: u64) -> u64 {
 
     // As a minor optimization, since choose(n, k) == choose(n, n-k),
     // we can switch between them to minimize the number of multiplies.
-    let kk =  min(k, n-k);
+    let kk = min(k, n - k);
     (1..kk + 1).fold(1, |acc, i| acc * (n - kk + i) / i)
 }
 
@@ -35,7 +35,10 @@ pub struct Digits {
 
 impl Digits {
     pub fn of(n: u32, radix: u32) -> Digits {
-        Digits { n: n, radix: radix }
+        Digits {
+            n: n,
+            radix: radix,
+        }
     }
 
     pub fn decimal(n: u32) -> Digits {

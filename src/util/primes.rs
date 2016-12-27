@@ -88,7 +88,7 @@ struct Group<S: Iterator> {
     prev: Option<S::Item>,
 }
 
-impl <S: Iterator> Group<S> {
+impl<S: Iterator> Group<S> {
     fn of(mut source: S) -> Group<S> {
         let prev = source.next();
         Group {
@@ -98,7 +98,10 @@ impl <S: Iterator> Group<S> {
     }
 }
 
-impl <S> Iterator for Group<S> where S: Iterator, S::Item: Eq {
+impl<S> Iterator for Group<S>
+    where S: Iterator,
+          S::Item: Eq
+{
     type Item = (S::Item, usize);
     fn next(&mut self) -> Option<Self::Item> {
         self.prev.take().map(|x| {

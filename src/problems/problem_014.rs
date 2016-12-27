@@ -39,25 +39,22 @@ pub fn solve_fast(seeds: Range<usize>) -> usize {
     // The recursion gets deep enough that we run into stack overflows, so we'll manually
     // manage the stack. :sigh:
     let mut stack: Vec<usize> = Vec::new();
-    
-    seeds.max_by_key(|&s| {
-        let mut cur = s;
-        while cur >= memo.len() || memo[cur].is_none() {
-            stack.push(cur);
-            cur = if cur % 2 == 0 {
-                cur / 2
-            } else {
-                3 * cur + 1
-            }
-        }
 
-        let mut len = memo[cur].unwrap();
-        while let Some(cur) = stack.pop() {
-            len += 1;
-            if cur < memo.len() {
-                memo[cur] = Some(len);
+    seeds.max_by_key(|&s| {
+            let mut cur = s;
+            while cur >= memo.len() || memo[cur].is_none() {
+                stack.push(cur);
+                cur = if cur % 2 == 0 { cur / 2 } else { 3 * cur + 1 }
             }
-        }
-        len
-    }).unwrap()
+
+            let mut len = memo[cur].unwrap();
+            while let Some(cur) = stack.pop() {
+                len += 1;
+                if cur < memo.len() {
+                    memo[cur] = Some(len);
+                }
+            }
+            len
+        })
+        .unwrap()
 }
