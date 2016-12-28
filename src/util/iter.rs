@@ -38,3 +38,46 @@ impl<A, B> Iterator for Cross<A, B>
         }
     }
 }
+
+
+pub fn imerge<X: Iterator, Y: Iterator>(mut xs: X, mut ys: Y) -> IntersectionMerge<X, Y> {
+    let (x, y) = (xs.next(), ys.next());
+    IntersectionMerge {
+        x: x,
+        y: y,
+        xs: xs,
+        ys: ys,
+    }
+}
+
+pub struct IntersectionMerge<X: Iterator, Y: Iterator> {
+    x: Option<X::Item>,
+    y: Option<Y::Item>,
+    xs: X,
+    ys: Y,
+}
+
+impl<T: Clone + Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for IntersectionMerge<X, Y> {
+    type Item = T;
+    fn next(&mut self) -> Option<Self::Item> {
+        while let (Some(x0), Some(y0)) = (self.x.clone(), self.y.clone()) {
+            if x0 < y0 {
+                self.x = self.xs.next();
+            } else if y0 < x0 {
+                self.y = self.ys.next();
+            } else {
+                break;
+            }
+        }
+        match (self.x.clone(), self.y.clone()) {
+            (Some(x0), Some(y0)) => {
+                assert!(x0 == y0);
+                let tmp = x0;
+                self.x = self.xs.next();
+                self.y = self.ys.next();
+                Some(tmp)
+            },
+            (_, _) => None,
+        }
+    }
+}
