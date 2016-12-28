@@ -40,44 +40,39 @@ impl<A, B> Iterator for Cross<A, B>
 }
 
 
-pub fn imerge<X: Iterator, Y: Iterator>(mut xs: X, mut ys: Y) -> IntersectionMerge<X, Y> {
-    let (x, y) = (xs.next(), ys.next());
+fn both<T>(x: Option<T>, y: Option<T>) -> Option<(T, T)> {
+    match (x, y) {
+        (Some(x0), Some(y0)) => Some((x0, y0)),
+        (_, _) => None,
+    }
+}
+pub fn imerge<T, X: Iterator<Item=T>, Y: Iterator<Item=T>>(mut xs: X, mut ys: Y) -> IntersectionMerge<T, X, Y> {
     IntersectionMerge {
-        x: x,
-        y: y,
+        cur: both(xs.next(), ys.next()),
         xs: xs,
         ys: ys,
     }
 }
 
-pub struct IntersectionMerge<X: Iterator, Y: Iterator> {
-    x: Option<X::Item>,
-    y: Option<Y::Item>,
+pub struct IntersectionMerge<T, X: Iterator<Item=T>, Y: Iterator<Item=T>> {
+    cur: Option<(T, T)>,
     xs: X,
     ys: Y,
 }
 
-impl<T: Clone + Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for IntersectionMerge<X, Y> {
+impl<T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for IntersectionMerge<T, X, Y> {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
-        while let (Some(x0), Some(y0)) = (self.x.clone(), self.y.clone()) {
+        while let Some((x0, y0)) = self.cur.take() {
             if x0 < y0 {
-                self.x = self.xs.next();
+                self.cur = self.xs.next().map(|x1| (x1, y0));
             } else if y0 < x0 {
-                self.y = self.ys.next();
+                self.cur = self.ys.next().map(|y1| (x0, y1));
             } else {
-                break;
+                self.cur = both(self.xs.next(), self.ys.next());
+                return Some(x0);
             }
         }
-        match (self.x.clone(), self.y.clone()) {
-            (Some(x0), Some(y0)) => {
-                assert!(x0 == y0);
-                let tmp = x0;
-                self.x = self.xs.next();
-                self.y = self.ys.next();
-                Some(tmp)
-            },
-            (_, _) => None,
-        }
+        None
     }
 }
