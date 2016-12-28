@@ -15,22 +15,23 @@ pub fn solve(hi: usize) -> usize {
         })
         .collect();
 
+    // What is the maximum number of consecutive primes we should consider?
     let n_max = cum_sum.iter()
         .enumerate()
         .find(|&(_, v)| *v >= hi)
         .map(|(idx, _)| idx)
         .unwrap_or(ps.len());
 
-    for n in (1..n_max).rev() {
-        let end = (0..ps.len() - n)
-            .find(|&i| cum_sum[i + n] - cum_sum[i] >= hi)
-            .unwrap_or(ps.len() - n);
-        for start in 0..end {
-            let total = cum_sum[start + n] - cum_sum[start];
-            if total < hi && sieve[total] {
-                return total;
-            }
-        }
-    }
-    return 0;
+    // For each possible number of consecutive primes (in descending order),
+    // check if there are any prime sums. Return the first one.
+    (1..n_max)
+        .rev()
+        .flat_map(|n| {
+            (0..ps.len() - n)
+                .map(|i| cum_sum[i + n] - cum_sum[i])
+                .take_while(|&t| t < hi)
+                .find(|&t| sieve[t])
+        })
+        .next()
+        .unwrap()
 }
