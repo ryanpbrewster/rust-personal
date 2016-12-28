@@ -1,7 +1,7 @@
 extern crate project_euler;
 
 use project_euler::util::iter::Cross;
-use project_euler::util::iter::imerge;
+use project_euler::util::iter::Intersect;
 
 #[test]
 fn crossiter_finite() {
@@ -13,7 +13,7 @@ fn crossiter_finite() {
 fn imerge_works() {
     let xs = vec![1, 3, 5, 7, 9];
     let ys = vec![2, 3, 4, 8, 9, 10];
-    let mut iter = imerge(xs.iter(), ys.iter());
+    let mut iter = Intersect::from(xs.iter(), ys.iter());
 
     assert_eq!(iter.next(), Some(&3));
     assert_eq!(iter.next(), Some(&9));

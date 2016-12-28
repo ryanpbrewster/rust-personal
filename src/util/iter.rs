@@ -46,21 +46,24 @@ fn both<T>(x: Option<T>, y: Option<T>) -> Option<(T, T)> {
         (_, _) => None,
     }
 }
-pub fn imerge<T, X: Iterator<Item=T>, Y: Iterator<Item=T>>(mut xs: X, mut ys: Y) -> IntersectionMerge<T, X, Y> {
-    IntersectionMerge {
-        cur: both(xs.next(), ys.next()),
-        xs: xs,
-        ys: ys,
-    }
-}
-
-pub struct IntersectionMerge<T, X: Iterator<Item=T>, Y: Iterator<Item=T>> {
+pub struct Intersect<T, X, Y> {
     cur: Option<(T, T)>,
     xs: X,
     ys: Y,
 }
 
-impl<T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for IntersectionMerge<T, X, Y> {
+impl <T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Intersect<T, X, Y> {
+    pub fn from(mut xs: X, mut ys: Y) -> Intersect<T, X, Y> {
+        Intersect{
+            cur: both(xs.next(), ys.next()),
+            xs: xs,
+            ys: ys,
+        }
+}
+
+}
+
+impl<T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for Intersect<T, X, Y> {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
         while let Some((x0, y0)) = self.cur.take() {
