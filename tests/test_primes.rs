@@ -10,8 +10,9 @@ fn primes_iter() {
 
 #[test]
 fn primes_iter_correctness() {
-    assert_eq!(primes::Primes::all().take_while(|&n| n < 1_000).collect::<Vec<_>>(),
-               primes::sieve(1_000));
+    let sieve: Vec<bool> = primes::sieve(1_000);
+    let ps: Vec<u32> = (2..1000).filter(|&i| sieve[i as usize]).collect();
+    assert_eq!(primes::Primes::all().take_while(|&n| n < 1_000).collect::<Vec<_>>(), ps);
 }
 
 #[test]

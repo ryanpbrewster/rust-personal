@@ -1,13 +1,13 @@
-pub fn sieve(hi: u32) -> Vec<u32> {
-    let mut is_prime_vec: Vec<bool> = vec![true; hi as usize];
+pub fn sieve(hi: usize) -> Vec<bool> {
+    let mut is_prime_vec: Vec<bool> = vec![true; hi];
     for p in 2..hi {
-        if is_prime_vec[p as usize] {
+        if is_prime_vec[p] {
             for k in p..(hi + p - 1) / p {
-                is_prime_vec[(k * p) as usize] = false;
+                is_prime_vec[k * p] = false;
             }
         }
     }
-    (2..hi).filter(|&p| is_prime_vec[p as usize]).collect()
+    is_prime_vec
 }
 
 pub struct Primes {
