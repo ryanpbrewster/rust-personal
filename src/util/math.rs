@@ -1,4 +1,5 @@
 use std::cmp::min;
+use std::convert::From;
 
 // Sum[i, {i, 1, n}]
 pub fn sum(n: u32) -> u32 {
@@ -140,5 +141,43 @@ pub mod pythag {
             self.idx += 1;
             Some(t)
         }
+    }
+}
+
+pub struct Decimals {
+    n: u32,
+    d: u32,
+}
+
+impl Decimals {
+    pub fn reciprocal(d: u32) -> Decimals {
+        Decimals { n: 1, d: d }
+    }
+
+    pub fn repeating(mut self) -> (Vec<u32>, Vec<u32>) {
+        // the index that self.n was first seen
+        let mut vis: Vec<Option<usize>> = vec![None; self.d as usize];
+        vis[self.n as usize] = Some(0);
+
+        let mut part: Vec<u32> = Vec::new();
+        while let Some(digit) = self.next() {
+            part.push(digit);
+            match vis[self.n as usize] {
+                None => vis[self.n as usize] = Some(part.len()),
+
+                Some(idx) => return (Vec::from(&part[..idx]), Vec::from(&part[idx..])),
+            };
+        }
+        (part, Vec::new())
+    }
+}
+
+impl Iterator for Decimals {
+    type Item = u32;
+    fn next(&mut self) -> Option<u32> {
+        let q = 10 * self.n / self.d;
+        self.n = (10 * self.n) % self.d;
+        Some(q)
+
     }
 }
