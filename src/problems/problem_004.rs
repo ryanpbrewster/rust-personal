@@ -1,5 +1,15 @@
 use std::cmp::max;
 
+#[test]
+fn small() {
+    assert_eq!(solve(1), 9);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(3), 906609);
+}
+
 const LOWER_BOUNDS: [u32; 6] = [0, 1, 10, 100, 1000, 10000];
 
 pub fn solve(n_digits: u32) -> u32 {

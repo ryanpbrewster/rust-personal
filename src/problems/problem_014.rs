@@ -1,5 +1,21 @@
 use std::ops::Range;
 
+#[test]
+fn small() {
+    assert_eq!(solve(1..20), 19);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(1..1_000_000), 837799);
+}
+
+#[test]
+fn fast() {
+    assert_eq!(solve_fast(1..1_000_000), 837799);
+}
+
+
 // Find the number in the `seeds` Range that produces the longest Collatz chain
 pub fn solve(seeds: Range<u64>) -> u64 {
     seeds.max_by_key(|&s| Collatz::start(s).count()).expect("`seeds` must not be empty")

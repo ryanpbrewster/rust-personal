@@ -1,6 +1,21 @@
 use util::math::pythag::Triple;
 use std::collections::VecDeque;
 
+#[test]
+fn small() {
+    assert_eq!(solve(3 + 4 + 5), Some(3 * 4 * 5));
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(1_000), Some(31875000));
+}
+
+#[test]
+fn no_valid_answer() {
+    assert_eq!(solve(999), None);
+}
+
 // Find any pythagorean triple where a+b+c == n
 pub fn solve(n: u32) -> Option<u32> {
     let mut q = VecDeque::new();

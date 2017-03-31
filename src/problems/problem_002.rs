@@ -1,3 +1,8 @@
+#[test]
+fn main() {
+    assert!(solve(4_000_000) == 4613732);
+}
+
 pub fn solve(hi: u32) -> u32 {
     FibonacciElement::start()
         .into_iter()
