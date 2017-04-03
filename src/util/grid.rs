@@ -1,4 +1,8 @@
 use std::ops::Index;
+use std::fs::File;
+use std::io::Read;
+use std::path::Path;
+use std::str::FromStr;
 
 #[derive(Debug)]
 pub struct Grid<T> {
@@ -20,6 +24,30 @@ impl<T> Grid<T> {
 
     pub fn num_cols(&self) -> usize {
         self.dim.1
+    }
+
+    pub fn from_file(mut fin: File) -> Result<Grid<T>, &'static str> where T: FromStr {
+        let mut s = String::new();
+        match fin.read_to_string(&mut s) {
+            Err(e) => return Err("could not read from file"),
+            Ok(_) => {}
+        };
+
+        let mut contents: Vec<T> = Vec::new();
+        let lines: Vec<_> = s.lines().collect();
+
+        let num_rows = lines.len();
+        let num_cols = lines[0].split(" ").count();
+        for line in lines {
+            for tok in line.split(" ") {
+                match tok.parse::<T>() {
+                    Ok(v) => contents.push(v),
+                    Err(e) => return Err("could not parse token")
+                };
+            }
+        }
+
+        Ok(Grid::new((num_rows, num_cols), contents))
     }
 }
 
