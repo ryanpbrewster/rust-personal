@@ -21,3 +21,8 @@ const FACTORIAL: [u32; 10] = [1,
 fn f(n: u32) -> u32 {
     Digits::decimal(n).map(|d| FACTORIAL[d as usize]).sum()
 }
+
+#[test]
+fn main() {
+    assert_eq!(solve(), 40730);
+}

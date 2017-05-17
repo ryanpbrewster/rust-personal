@@ -15,3 +15,13 @@ fn big_factorial(n: u32) -> BigUint {
 fn digit_sum(b: BigUint) -> u32 {
     b.to_str_radix(10).chars().map(|c| c.to_digit(10).unwrap()).sum()
 }
+
+#[test]
+fn small() {
+    assert_eq!(solve(10), 27);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(100), 648);
+}

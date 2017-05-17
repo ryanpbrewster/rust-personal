@@ -7,3 +7,14 @@ pub fn solve(lo: u32) -> u32 {
         .next()
         .unwrap()
 }
+
+#[test]
+fn small() {
+    assert_eq!(solve(0), 1);
+    assert_eq!(solve(1), 40755);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(40755), 1533776805);
+}

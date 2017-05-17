@@ -42,3 +42,18 @@ pub fn solve_fast(num_digits: usize) -> usize {
     let n = (num_digits - 1) as f64 * 10.0_f64.ln() / phi.ln() + 0.5 * 5.0_f64.ln() / phi.ln();
     n as usize
 }
+
+#[test]
+fn small() {
+    assert_eq!(solve(3), 11);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(1000), 4781);
+}
+
+#[test]
+fn fast() {
+    assert_eq!(solve_fast(1000), 4781);
+}

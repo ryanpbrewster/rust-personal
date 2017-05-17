@@ -35,3 +35,13 @@ pub fn solve(hi: usize) -> usize {
         .next()
         .unwrap()
 }
+
+#[test]
+fn small() {
+    assert_eq!(solve(100), 2 + 3 + 5 + 7 + 11 + 13);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(1_000_000), 997651);
+}

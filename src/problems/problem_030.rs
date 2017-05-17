@@ -12,3 +12,8 @@ pub fn solve() -> u32 {
 fn f(n: u32) -> u32 {
     Digits::decimal(n).map(|d| d * d * d * d * d).sum()
 }
+
+#[test]
+fn main() {
+    assert_eq!(solve(), 443839);
+}

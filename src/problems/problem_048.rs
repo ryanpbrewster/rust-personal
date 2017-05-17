@@ -11,3 +11,13 @@ fn pow_mod(b: u64, e: u64, m: u64) -> u64 {
     }
     n
 }
+
+#[test]
+fn small() {
+    assert_eq!(solve(10), 0405071317);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(1_000), 9110846700);
+}

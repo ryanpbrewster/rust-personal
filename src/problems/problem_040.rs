@@ -44,3 +44,19 @@ pub fn solve_iter() -> u32 {
     let mut champ = Champernowne::all();
     diffs.into_iter().map(|diff| champ.nth(diff - 1).unwrap()).product()
 }
+
+#[test]
+fn small() {
+    assert_eq!(Champernowne::all().take(20).collect::<Vec<_>>(),
+               vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 0, 1, 1, 1, 2, 1, 3, 1, 4, 1]);
+}
+
+#[test]
+fn main() {
+    assert_eq!(solve(), 210);
+}
+
+#[test]
+fn iter() {
+    assert_eq!(solve_iter(), 210);
+}

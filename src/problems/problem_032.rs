@@ -26,3 +26,8 @@ pub fn solve() -> u32 {
 
     products.iter().sum()
 }
+
+#[test]
+fn main() {
+    assert_eq!(solve(), 45228);
+}

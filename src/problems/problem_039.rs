@@ -24,3 +24,8 @@ pub fn solve(hi: usize) -> usize {
         .map(|(idx, _)| idx)
         .unwrap()
 }
+
+#[test]
+fn main() {
+    assert_eq!(solve(1000), 840);
+}
