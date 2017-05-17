@@ -2,3 +2,7 @@ Cargo.lock
 *.exe
 target/*
 .*.swp
+
+# IntelliJ garbage
+.idea/
+project-euler.iml
