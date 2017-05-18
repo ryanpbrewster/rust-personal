@@ -1,21 +1,4 @@
 use std::ops::Range;
-
-#[test]
-fn small() {
-    assert_eq!(solve(1..20), 19);
-}
-
-#[test]
-fn main() {
-    assert_eq!(solve(1..1_000_000), 837799);
-}
-
-#[test]
-fn fast() {
-    assert_eq!(solve_fast(1..1_000_000), 837799);
-}
-
-
 // Find the number in the `seeds` Range that produces the longest Collatz chain
 pub fn solve(seeds: Range<u64>) -> u64 {
     seeds
@@ -40,7 +23,7 @@ impl Iterator for Collatz {
 
         let v = self.0;
         if self.0 % 2 == 0 {
-            self.0 = self.0 / 2;
+            self.0 /= 2;
         } else {
             self.0 = 3 * self.0 + 1;
         }
@@ -76,4 +59,24 @@ pub fn solve_fast(seeds: Range<usize>) -> usize {
             len
         })
         .unwrap()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn small() {
+        assert_eq!(solve(1..20), 19);
+    }
+
+    #[test]
+    fn main() {
+        assert_eq!(solve(1..1_000_000), 837799);
+    }
+
+    #[test]
+    fn fast() {
+        assert_eq!(solve_fast(1..1_000_000), 837799);
+    }
 }

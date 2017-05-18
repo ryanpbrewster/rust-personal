@@ -78,3 +78,45 @@ impl<T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for Intersec
         None
     }
 }
+
+
+
+
+
+pub struct Group<S: Iterator> {
+    source: S,
+    prev: Option<S::Item>,
+}
+
+impl<S: Iterator> Group<S> {
+    pub fn of(mut source: S) -> Group<S> {
+        let prev = source.next();
+        Group {
+            source: source,
+            prev: prev,
+        }
+    }
+}
+
+impl<S> Iterator for Group<S>
+    where S: Iterator,
+          S::Item: Eq
+{
+    type Item = (S::Item, usize);
+    fn next(&mut self) -> Option<Self::Item> {
+        self.prev
+            .take()
+            .map(|x| {
+                let mut count = 1;
+                for cur in &mut self.source {
+                    if cur == x {
+                        count += 1;
+                    } else {
+                        self.prev = Some(cur);
+                        break;
+                    }
+                }
+                (x, count)
+            })
+    }
+}

@@ -1,5 +1,16 @@
-#[test]
-lazy_static! {
+pub fn solve(numbers: &[i32], n: usize) -> i64 {
+    numbers
+        .windows(n)
+        .map(|chunk| chunk.iter().fold(1i64, |a, &b| a * b as i64))
+        .max()
+        .unwrap()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    lazy_static! {
     static ref NUMBERS: Vec<i32> =
         "\
         73167176531330624919225119674426574742355349194934\
@@ -23,22 +34,15 @@ lazy_static! {
         05886116467109405077541002256983155200055935729725\
         71636269561882670428252483600823257530420752963450\
         ".chars().map(|c| c.to_digit(10).unwrap() as i32).collect::<Vec<i32>>();
-}
+    }
 
-#[test]
-fn small() {
-    assert_eq!(solve(&*NUMBERS, 4), 5832);
-}
+    #[test]
+    fn small() {
+        assert_eq!(solve(&*NUMBERS, 4), 5832);
+    }
 
-#[test]
-fn main() {
-    assert_eq!(solve(&*NUMBERS, 13), 23514624000);
-}
-
-pub fn solve(numbers: &Vec<i32>, n: usize) -> i64 {
-    numbers
-        .windows(n)
-        .map(|chunk| chunk.iter().fold(1i64, |a, &b| a * b as i64))
-        .max()
-        .unwrap()
+    #[test]
+    fn main() {
+        assert_eq!(solve(&*NUMBERS, 13), 23514624000);
+    }
 }

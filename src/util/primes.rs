@@ -1,3 +1,5 @@
+use util::iter::Group;
+
 pub fn sieve(hi: usize) -> Vec<bool> {
     let mut is_prime_vec: Vec<bool> = vec![true; hi];
     for p in 2..hi {
@@ -80,44 +82,6 @@ impl Iterator for Factors {
         }
         self.n /= self.lo;
         Some(self.lo)
-    }
-}
-
-struct Group<S: Iterator> {
-    source: S,
-    prev: Option<S::Item>,
-}
-
-impl<S: Iterator> Group<S> {
-    fn of(mut source: S) -> Group<S> {
-        let prev = source.next();
-        Group {
-            source: source,
-            prev: prev,
-        }
-    }
-}
-
-impl<S> Iterator for Group<S>
-    where S: Iterator,
-          S::Item: Eq
-{
-    type Item = (S::Item, usize);
-    fn next(&mut self) -> Option<Self::Item> {
-        self.prev
-            .take()
-            .map(|x| {
-                let mut count = 1;
-                while let Some(cur) = self.source.next() {
-                    if cur == x {
-                        count += 1;
-                    } else {
-                        self.prev = Some(cur);
-                        break;
-                    }
-                }
-                (x, count)
-            })
     }
 }
 

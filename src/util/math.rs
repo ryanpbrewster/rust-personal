@@ -99,7 +99,7 @@ pub mod pythag {
                 scale_factor: 1,
             }
         }
-        pub fn branch<'a>(&self) -> Branch {
+        pub fn branch(&self) -> Branch {
             Branch {
                 root: self.clone(),
                 idx: 0,

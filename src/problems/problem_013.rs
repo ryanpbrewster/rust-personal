@@ -1,7 +1,7 @@
 use num::bigint::BigInt;
 use num::traits::Zero;
 
-pub fn solve(numbers: Vec<BigInt>) -> BigInt {
+pub fn solve(numbers: &[BigInt]) -> BigInt {
     numbers.iter().fold(BigInt::zero(), |a, b| a + b)
 }
 
@@ -14,7 +14,7 @@ mod test {
     fn small() {
         let numbers: Vec<BigInt> = vec![BigInt::from_u32(19).unwrap(),
                                         BigInt::from_u32(42).unwrap()];
-        assert_eq!(solve(numbers), BigInt::from_u32(19 + 42).unwrap());
+        assert_eq!(solve(&numbers), BigInt::from_u32(19 + 42).unwrap());
     }
 
     #[test]
@@ -127,7 +127,7 @@ mod test {
 
         // You have to be very explicit when truncating a string and tell it that you want the
         // raw characters. Otherwise it'll try and do wacky UTF-8 things.
-        assert_eq!(solve(numbers)
+        assert_eq!(solve(&numbers)
                        .to_str_radix(10)
                        .chars()
                        .take(10)

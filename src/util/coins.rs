@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-pub fn ways_to_make(target: usize, coins: &Vec<usize>) -> u32 {
+pub fn ways_to_make(target: usize, coins: &[usize]) -> u32 {
     let mut ways_arr = vec![0; target+1];
     ways_arr[0] = 1;
     for &c in coins {
@@ -12,7 +12,7 @@ pub fn ways_to_make(target: usize, coins: &Vec<usize>) -> u32 {
 }
 
 pub fn ways_to_make_with_replacement(target: usize, coins: &HashSet<usize>) -> u32 {
-    let mut coins_vec: Vec<usize> = coins.iter().map(|v| v.clone()).collect::<Vec<_>>();
+    let mut coins_vec: Vec<usize> = coins.iter().cloned().collect::<Vec<_>>();
     coins_vec.sort();
     let sorted_coins = coins_vec;
 

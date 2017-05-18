@@ -17,22 +17,19 @@ impl Direction {
 }
 
 
-pub fn solve(grid: &Grid<i32>, n: usize) -> i32 {
+pub fn solve(grid: &Grid<i32>, n: usize) -> Option<i32> {
     Direction::all()
         .iter()
         .flat_map(|&dir| analyze(grid, n, dir))
         .max()
-        .unwrap()
-        .clone()
 }
 
 fn analyze(grid: &Grid<i32>, n: usize, dir: Direction) -> Option<i32> {
     use self::Direction::*;
     let rows = match dir {
-        Down => 0..grid.num_rows() - n + 1,
+        Down | DownDiag => 0..grid.num_rows() - n + 1,
         Right => 0..grid.num_rows(),
         UpDiag => n - 1..grid.num_rows(),
-        DownDiag => 0..grid.num_rows() - n + 1,
     };
     let cols = match dir {
         Down => 0..grid.num_cols(),
@@ -68,13 +65,13 @@ mod test {
     fn small() {
         let g = Grid::new((3, 3), vec![1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-        assert_eq!(solve(&g, 2), 8 * 9);
+        assert_eq!(solve(&g, 2).unwrap(), 8 * 9);
     }
 
     #[test]
     fn main() {
         let fin = File::open(Path::new("data/p011_main.in")).expect("couldn't open file");
         let g = Grid::from_file(fin).expect("could not parse grid");
-        assert_eq!(solve(&g, 4), 70600674);
+        assert_eq!(solve(&g, 4).unwrap(), 70600674);
     }
 }

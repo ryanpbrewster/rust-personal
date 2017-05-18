@@ -21,7 +21,7 @@ pub fn solve(hi: usize) -> usize {
         .enumerate()
         .find(|&(_, v)| *v >= hi)
         .map(|(idx, _)| idx)
-        .unwrap_or(ps.len());
+        .unwrap_or_else(|| ps.len());
 
     // For each possible number of consecutive primes (in descending order),
     // check if there are any prime sums. Return the first one.

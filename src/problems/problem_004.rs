@@ -1,15 +1,5 @@
 use std::cmp::max;
 
-#[test]
-fn small() {
-    assert_eq!(solve(1), 9);
-}
-
-#[test]
-fn main() {
-    assert_eq!(solve(3), 906609);
-}
-
 const LOWER_BOUNDS: [u32; 6] = [0, 1, 10, 100, 1000, 10000];
 
 pub fn solve(n_digits: u32) -> u32 {
@@ -26,8 +16,8 @@ pub fn solve(n_digits: u32) -> u32 {
         // --> b >= best/a
         // and b <= a (to avoid double-searching pairs)
         for b in max(a, best / a)..hi {
-            let n = a * b;
-            if is_palindrome(n.to_string()) {
+            let n: u32 = a * b;
+            if is_palindrome(&n.to_string()) {
                 best = n;
             }
         }
@@ -35,6 +25,21 @@ pub fn solve(n_digits: u32) -> u32 {
     best
 }
 
-fn is_palindrome(str: String) -> bool {
-    str == str.chars().rev().collect::<String>()
+fn is_palindrome(s: &str) -> bool {
+    s.chars().eq(s.chars().rev())
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn small() {
+        assert_eq!(solve(1), 9);
+    }
+
+    #[test]
+    fn main() {
+        assert_eq!(solve(3), 906609);
+    }
 }

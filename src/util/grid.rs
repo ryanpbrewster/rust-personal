@@ -36,9 +36,9 @@ impl<T> Grid<T> {
         let lines: Vec<_> = s.lines().collect();
 
         let num_rows = lines.len();
-        let num_cols = lines[0].split(" ").count();
+        let num_cols = lines[0].split(' ').count();
         for line in lines {
-            for tok in line.split(" ") {
+            for tok in line.split(' ') {
                 contents.push(tok.parse::<T>().map_err(|_| "could not parse token")?);
             }
         }

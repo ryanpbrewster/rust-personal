@@ -3,12 +3,9 @@ pub fn solve() -> usize {
         for j in 1..i {
             let pi = f(i);
             let pj = f(j);
-            match (f_inverse(pi + pj), f_inverse(pi + 2 * pj)) {
-                (Some(_), Some(_)) => {
-                    return pi;
-                }
-                _ => {}
-            };
+            if f_inverse(pi + pj).is_some() && f_inverse(pi + 2 * pj).is_some() {
+                return pi;
+            }
         }
     }
     0
