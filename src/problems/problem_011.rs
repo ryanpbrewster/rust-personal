@@ -1,31 +1,6 @@
 use util::grid::Grid;
 use util::iter::Cross;
 
-use std::fs::File;
-use std::io::Read;
-use std::path::Path;
-
-#[test]
-fn small() {
-    let g = Grid::new((3, 3), vec![1, 2, 3, 4, 5, 6, 7, 8, 9]);
-
-    assert_eq!(solve(&g, 2), 8 * 9);
-}
-
-#[test]
-fn main() {
-    let mut fin = match File::open(Path::new("data/p011_main.in")) {
-        Err(e) => panic!("couldn't open file: {}", e),
-        Ok(file) => file,
-    };
-    let g = Grid::from_file(fin).expect("could not parse grid");
-    assert_eq!(solve(&g, 4), 70600674);
-}
-
-
-
-
-
 #[derive(Clone, Copy)]
 enum Direction {
     Down,
@@ -81,4 +56,25 @@ fn analyze(grid: &Grid<i32>, n: usize, dir: Direction) -> Option<i32> {
         })
         .max()
 
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::fs::File;
+    use std::path::Path;
+
+    #[test]
+    fn small() {
+        let g = Grid::new((3, 3), vec![1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+        assert_eq!(solve(&g, 2), 8 * 9);
+    }
+
+    #[test]
+    fn main() {
+        let fin = File::open(Path::new("data/p011_main.in")).expect("couldn't open file");
+        let g = Grid::from_file(fin).expect("could not parse grid");
+        assert_eq!(solve(&g, 4), 70600674);
+    }
 }

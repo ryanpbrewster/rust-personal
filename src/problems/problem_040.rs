@@ -42,7 +42,10 @@ pub fn solve_iter() -> u32 {
     let diffs: Vec<_> = idxs.windows(2).map(|w| w[1] - w[0]).collect();
 
     let mut champ = Champernowne::all();
-    diffs.into_iter().map(|diff| champ.nth(diff - 1).unwrap()).product()
+    diffs
+        .into_iter()
+        .map(|diff| champ.nth(diff - 1).unwrap())
+        .product()
 }
 
 #[test]

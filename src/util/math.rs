@@ -36,10 +36,7 @@ pub struct Digits {
 
 impl Digits {
     pub fn of(n: u32, radix: u32) -> Digits {
-        Digits {
-            n: n,
-            radix: radix,
-        }
+        Digits { n: n, radix: radix }
     }
 
     pub fn decimal(n: u32) -> Digits {

@@ -20,6 +20,9 @@ fn pythag_triple_tree_branch() {
 fn pythag_triple_scaling() {
     assert_eq!(pythag::Triple::new(3, 4, 5).scaled(11),
                pythag::Triple::new(33, 44, 55));
-    assert_eq!(pythag::Triple::new(3, 4, 5).scaled_triples().nth(10).unwrap(),
+    assert_eq!(pythag::Triple::new(3, 4, 5)
+                   .scaled_triples()
+                   .nth(10)
+                   .unwrap(),
                pythag::Triple::new(33, 44, 55));
 }

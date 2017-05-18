@@ -1,7 +1,10 @@
+#[cfg(test)]
 #[macro_use]
 extern crate lazy_static;
 
-pub mod problems{
+extern crate num;
+
+pub mod problems {
     pub mod problem_001;
     pub mod problem_002;
     pub mod problem_003;

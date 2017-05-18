@@ -52,15 +52,14 @@ pub struct Intersect<T, X, Y> {
     ys: Y,
 }
 
-impl <T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Intersect<T, X, Y> {
+impl<T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Intersect<T, X, Y> {
     pub fn from(mut xs: X, mut ys: Y) -> Intersect<T, X, Y> {
-        Intersect{
+        Intersect {
             cur: both(xs.next(), ys.next()),
             xs: xs,
             ys: ys,
         }
-}
-
+    }
 }
 
 impl<T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for Intersect<T, X, Y> {

@@ -18,7 +18,9 @@ fn fast() {
 
 // Find the number in the `seeds` Range that produces the longest Collatz chain
 pub fn solve(seeds: Range<u64>) -> u64 {
-    seeds.max_by_key(|&s| Collatz::start(s).count()).expect("`seeds` must not be empty")
+    seeds
+        .max_by_key(|&s| Collatz::start(s).count())
+        .expect("`seeds` must not be empty")
 }
 
 struct Collatz(u64);
@@ -56,7 +58,8 @@ pub fn solve_fast(seeds: Range<usize>) -> usize {
     // manage the stack. :sigh:
     let mut stack: Vec<usize> = Vec::new();
 
-    seeds.max_by_key(|&s| {
+    seeds
+        .max_by_key(|&s| {
             let mut cur = s;
             while cur >= memo.len() || memo[cur].is_none() {
                 stack.push(cur);

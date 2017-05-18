@@ -1,7 +1,6 @@
 use std::ops::Index;
 use std::fs::File;
 use std::io::Read;
-use std::path::Path;
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -26,12 +25,12 @@ impl<T> Grid<T> {
         self.dim.1
     }
 
-    pub fn from_file(mut fin: File) -> Result<Grid<T>, &'static str> where T: FromStr {
+    pub fn from_file(mut fin: File) -> Result<Grid<T>, &'static str>
+        where T: FromStr
+    {
         let mut s = String::new();
-        match fin.read_to_string(&mut s) {
-            Err(e) => return Err("could not read from file"),
-            Ok(_) => {}
-        };
+        fin.read_to_string(&mut s)
+            .map_err(|_| "could not read file")?;
 
         let mut contents: Vec<T> = Vec::new();
         let lines: Vec<_> = s.lines().collect();
@@ -40,10 +39,7 @@ impl<T> Grid<T> {
         let num_cols = lines[0].split(" ").count();
         for line in lines {
             for tok in line.split(" ") {
-                match tok.parse::<T>() {
-                    Ok(v) => contents.push(v),
-                    Err(e) => return Err("could not parse token")
-                };
+                contents.push(tok.parse::<T>().map_err(|_| "could not parse token")?);
             }
         }
 

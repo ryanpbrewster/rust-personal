@@ -16,7 +16,8 @@ pub fn solve(hi: usize) -> usize {
         .collect();
 
     // What is the maximum number of consecutive primes we should consider?
-    let n_max = cum_sum.iter()
+    let n_max = cum_sum
+        .iter()
         .enumerate()
         .find(|&(_, v)| *v >= hi)
         .map(|(idx, _)| idx)
@@ -27,21 +28,26 @@ pub fn solve(hi: usize) -> usize {
     (1..n_max)
         .rev()
         .flat_map(|n| {
-            (0..ps.len() - n)
-                .map(|i| cum_sum[i + n] - cum_sum[i])
-                .take_while(|&t| t < hi)
-                .find(|&t| sieve[t])
-        })
+                      (0..ps.len() - n)
+                          .map(|i| cum_sum[i + n] - cum_sum[i])
+                          .take_while(|&t| t < hi)
+                          .find(|&t| sieve[t])
+                  })
         .next()
         .unwrap()
 }
 
-#[test]
-fn small() {
-    assert_eq!(solve(100), 2 + 3 + 5 + 7 + 11 + 13);
-}
+#[cfg(test)]
+mod test {
+    use super::*;
 
-#[test]
-fn main() {
-    assert_eq!(solve(1_000_000), 997651);
+    #[test]
+    fn small() {
+        assert_eq!(solve(100), 2 + 3 + 5 + 7 + 11 + 13);
+    }
+
+    #[test]
+    fn main() {
+        assert_eq!(solve(1_000_000), 997651);
+    }
 }

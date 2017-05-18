@@ -18,7 +18,8 @@ pub fn solve(hi: usize) -> usize {
         }
     }
 
-    solution_count.iter()
+    solution_count
+        .iter()
         .enumerate()
         .max_by_key(|&(_, count)| count)
         .map(|(idx, _)| idx)

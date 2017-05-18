@@ -104,21 +104,25 @@ impl<S> Iterator for Group<S>
 {
     type Item = (S::Item, usize);
     fn next(&mut self) -> Option<Self::Item> {
-        self.prev.take().map(|x| {
-            let mut count = 1;
-            while let Some(cur) = self.source.next() {
-                if cur == x {
-                    count += 1;
-                } else {
-                    self.prev = Some(cur);
-                    break;
+        self.prev
+            .take()
+            .map(|x| {
+                let mut count = 1;
+                while let Some(cur) = self.source.next() {
+                    if cur == x {
+                        count += 1;
+                    } else {
+                        self.prev = Some(cur);
+                        break;
+                    }
                 }
-            }
-            (x, count)
-        })
+                (x, count)
+            })
     }
 }
 
 pub fn num_divisors(n: u64) -> u32 {
-    Group::of(factors(n)).map(|(_, k)| k + 1).fold(1, |a, b| a * b) as u32
+    Group::of(factors(n))
+        .map(|(_, k)| k + 1)
+        .fold(1, |a, b| a * b) as u32
 }

@@ -5,7 +5,11 @@ use std::mem;
 
 pub fn solve(num_digits: usize) -> usize {
     let threshold: BigUint = num::pow::pow(BigUint::from(10u32), num_digits - 1);
-    BigFib::all().enumerate().find(|&(_, ref n)| n >= &threshold).map(|(idx, _)| idx).unwrap()
+    BigFib::all()
+        .enumerate()
+        .find(|&(_, ref n)| n >= &threshold)
+        .map(|(idx, _)| idx)
+        .unwrap()
 }
 
 struct BigFib {
