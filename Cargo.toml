@@ -7,3 +7,4 @@ authors = ["Ryan Brewster <ryanpbrewster@gmail.com>"]
 num = "=0.1.37"
 lazy_static = "=0.1.16"
 petgraph = "=0.4.5"
+rayon = "=0.8.1"
