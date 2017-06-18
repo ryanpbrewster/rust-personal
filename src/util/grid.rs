@@ -1,9 +1,10 @@
 use std::ops::Index;
+use std::ops::IndexMut;
 use std::fs::File;
 use std::io::Read;
 use std::str::FromStr;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct Grid<T> {
     dim: (usize, usize),
     contents: Vec<T>,
@@ -25,7 +26,7 @@ impl<T> Grid<T> {
         self.dim.1
     }
 
-    pub fn from_file(mut fin: File) -> Result<Grid<T>, &'static str>
+    pub fn from_file(mut fin: File) -> Result<Grid<T>, String>
         where T: FromStr
     {
         let mut s = String::new();
@@ -36,10 +37,11 @@ impl<T> Grid<T> {
         let lines: Vec<_> = s.lines().collect();
 
         let num_rows = lines.len();
-        let num_cols = lines[0].split(' ').count();
+        let num_cols = lines[0].split_whitespace().count();
         for line in lines {
-            for tok in line.split(' ') {
-                contents.push(tok.parse::<T>().map_err(|_| "could not parse token")?);
+            for tok in line.split_whitespace() {
+                contents.push(
+                    tok.parse::<T>().map_err(|_| format!("could not parse token: {}", tok))?);
             }
         }
 
@@ -52,5 +54,12 @@ impl<T> Index<(usize, usize)> for Grid<T> {
     fn index(&self, index: (usize, usize)) -> &Self::Output {
         let idx: usize = index.0 * self.num_rows() + index.1;
         &self.contents[idx]
+    }
+}
+
+impl<T> IndexMut<(usize, usize)> for Grid<T> {
+    fn index_mut<'a>(&'a mut self, index: (usize, usize)) -> &'a mut T {
+        let idx: usize = index.0 * self.num_rows() + index.1;
+        &mut self.contents[idx]
     }
 }
