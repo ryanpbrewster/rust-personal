@@ -26,6 +26,10 @@ impl<T> Grid<T> {
         self.dim.1
     }
 
+    pub fn size(&self) -> usize {
+        self.dim.0 * self.dim.1
+    }
+
     pub fn from_file(mut fin: File) -> Result<Grid<T>, String>
         where T: FromStr
     {

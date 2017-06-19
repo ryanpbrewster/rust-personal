@@ -4,6 +4,8 @@ extern crate lazy_static;
 
 extern crate num;
 
+extern crate petgraph;
+
 pub mod problems {
     pub mod problem_001;
     pub mod problem_002;
@@ -38,6 +40,7 @@ pub mod problems {
     pub mod problem_050;
     pub mod problem_059;
     pub mod problem_081;
+    pub mod problem_082;
     pub mod problem_114;
 }
 
