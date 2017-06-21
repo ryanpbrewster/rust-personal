@@ -28,11 +28,11 @@ pub fn solve(hi: usize) -> usize {
     (1..n_max)
         .rev()
         .flat_map(|n| {
-                      (0..ps.len() - n)
-                          .map(|i| cum_sum[i + n] - cum_sum[i])
-                          .take_while(|&t| t < hi)
-                          .find(|&t| sieve[t])
-                  })
+            (0..ps.len() - n)
+                .map(|i| cum_sum[i + n] - cum_sum[i])
+                .take_while(|&t| t < hi)
+                .find(|&t| sieve[t])
+        })
         .next()
         .unwrap()
 }

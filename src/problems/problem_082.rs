@@ -11,11 +11,12 @@ pub fn solve(weight_grid: &Grid<u32>) -> u32 {
 
     let node_grid = Grid::new(
         (weight_grid.num_rows(), weight_grid.num_cols()),
-        (0..weight_grid.size()).map(|_| g.add_node(0)).collect());
+        (0..weight_grid.size()).map(|_| g.add_node(0)).collect(),
+    );
 
     // The left pseudo-node connects to every cell on the left-most column,
     // and the right to the right-most column.
-    for i in 0 .. weight_grid.num_rows() {
+    for i in 0..weight_grid.num_rows() {
         g.add_edge(left, node_grid[(i, 0)], weight_grid[(i, 0)]);
         g.add_edge(node_grid[(i, weight_grid.num_cols() - 1)], right, 0);
     }
@@ -24,17 +25,31 @@ pub fn solve(weight_grid: &Grid<u32>) -> u32 {
     for i in 0..weight_grid.num_rows() {
         for j in 0..weight_grid.num_cols() {
             if i > 0 {
-                g.add_edge(node_grid[(i, j)], node_grid[(i - 1, j)], weight_grid[(i - 1, j)]); // up
-                g.add_edge(node_grid[(i - 1, j)], node_grid[(i, j)], weight_grid[(i, j)]); // down
+                g.add_edge(
+                    node_grid[(i, j)],
+                    node_grid[(i - 1, j)],
+                    weight_grid[(i - 1, j)],
+                ); // up
+                g.add_edge(
+                    node_grid[(i - 1, j)],
+                    node_grid[(i, j)],
+                    weight_grid[(i, j)],
+                ); // down
             }
             if j > 0 {
-                g.add_edge(node_grid[(i, j - 1)], node_grid[(i, j)], weight_grid[(i, j)]); // right
+                g.add_edge(
+                    node_grid[(i, j - 1)],
+                    node_grid[(i, j)],
+                    weight_grid[(i, j)],
+                ); // right
             }
         }
     }
 
     let shortest_paths = algo::dijkstra(&g, left, Some(right), |e| *e.weight());
-    *shortest_paths.get(&right).expect("dijkstra should calculate costs for every node in the graph")
+    *shortest_paths.get(&right).expect(
+        "dijkstra should calculate costs for every node in the graph",
+    )
 }
 
 #[cfg(test)]

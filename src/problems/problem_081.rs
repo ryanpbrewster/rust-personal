@@ -3,13 +3,13 @@ use util::grid::Grid;
 
 pub fn solve(grid: &Grid<u32>) -> u32 {
     let mut dp = grid.clone();
-    for j in 1 .. grid.num_cols() {
-        dp[(0, j)] += dp[(0, j-1)];
+    for j in 1..grid.num_cols() {
+        dp[(0, j)] += dp[(0, j - 1)];
     }
-    for i in 1 .. grid.num_rows() {
-        dp[(i, 0)] += dp[(i-1, 0)];
+    for i in 1..grid.num_rows() {
+        dp[(i, 0)] += dp[(i - 1, 0)];
         for j in 1..grid.num_cols() {
-            dp[(i, j)] += cmp::min(dp[(i-1, j)], dp[(i, j-1)]);
+            dp[(i, j)] += cmp::min(dp[(i - 1, j)], dp[(i, j - 1)]);
         }
     }
     dp[(grid.num_rows() - 1, grid.num_cols() - 1)]

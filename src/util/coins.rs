@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 pub fn ways_to_make(target: usize, coins: &[usize]) -> u32 {
-    let mut ways_arr = vec![0; target+1];
+    let mut ways_arr = vec![0; target + 1];
     ways_arr[0] = 1;
     for &c in coins {
         for i in (c..(target + 1)).rev() {
@@ -16,7 +16,7 @@ pub fn ways_to_make_with_replacement(target: usize, coins: &HashSet<usize>) -> u
     coins_vec.sort();
     let sorted_coins = coins_vec;
 
-    let mut ways_arr = vec![0; target+1];
+    let mut ways_arr = vec![0; target + 1];
     ways_arr[0] = 1;
     for c in sorted_coins {
         for i in c..(target + 1) {

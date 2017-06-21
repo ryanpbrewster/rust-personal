@@ -3,9 +3,11 @@ use std::cmp::max;
 const LOWER_BOUNDS: [u32; 6] = [0, 1, 10, 100, 1000, 10000];
 
 pub fn solve(n_digits: u32) -> u32 {
-    assert!(1 <= n_digits && n_digits <= 4,
-            "n_digits ({}) invalid",
-            n_digits);
+    assert!(
+        1 <= n_digits && n_digits <= 4,
+        "n_digits ({}) invalid",
+        n_digits
+    );
     let lo = LOWER_BOUNDS[n_digits as usize];
     let hi = 10 * lo;
 

@@ -26,6 +26,8 @@ fn small() {
 
 #[test]
 fn main() {
-    assert_eq!(solve((0..10).collect(), 1_000_000 - 1),
-               vec![2, 7, 8, 3, 9, 1, 5, 4, 6, 0]);
+    assert_eq!(
+        solve((0..10).collect(), 1_000_000 - 1),
+        vec![2, 7, 8, 3, 9, 1, 5, 4, 6, 0]
+    );
 }

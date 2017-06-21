@@ -50,8 +50,10 @@ pub fn solve_iter() -> u32 {
 
 #[test]
 fn small() {
-    assert_eq!(Champernowne::all().take(20).collect::<Vec<_>>(),
-               vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 0, 1, 1, 1, 2, 1, 3, 1, 4, 1]);
+    assert_eq!(
+        Champernowne::all().take(20).collect::<Vec<_>>(),
+        vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 0, 1, 1, 1, 2, 1, 3, 1, 4, 1]
+    );
 }
 
 #[test]

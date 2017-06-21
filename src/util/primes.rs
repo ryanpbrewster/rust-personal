@@ -86,7 +86,8 @@ impl Iterator for Factors {
 }
 
 pub fn num_divisors(n: u64) -> u32 {
-    Group::of(factors(n))
-        .map(|(_, k)| k + 1)
-        .fold(1, |a, b| a * b) as u32
+    Group::of(factors(n)).map(|(_, k)| k + 1).fold(
+        1,
+        |a, b| a * b,
+    ) as u32
 }
