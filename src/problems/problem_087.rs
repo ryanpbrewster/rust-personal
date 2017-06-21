@@ -17,7 +17,8 @@ use util::prime;
 // Count how many numbers `n < hi` can be expressed as the sum of a prime
 // square + prime cube + prime 4th?
 fn solve(hi: usize) -> usize {
-    let ps: Vec<usize> = prime::sieve(hi)
+    let bound = (hi as f64).sqrt() as usize;
+    let ps: Vec<usize> = prime::sieve(bound)
         .into_iter()
         .enumerate()
         .filter(|&(_, b)| b)
