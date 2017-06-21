@@ -1,11 +1,11 @@
-use util::primes;
+use util::prime;
 
 pub fn solve(hi: usize) -> usize {
     // Find the prime, p, where:
     //   - p < hi and
     //   - p == Sum[Prime[i], {i, a, b}]
     // that maximizes |b-a|
-    let sieve = primes::sieve(hi);
+    let sieve = prime::sieve(hi);
 
     let ps: Vec<usize> = (2..hi).filter(|&i| sieve[i]).collect();
     let cum_sum: Vec<usize> = ps.iter()

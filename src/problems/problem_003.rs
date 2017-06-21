@@ -1,4 +1,4 @@
-use util::primes;
+use util::prime;
 
 #[test]
 fn main() {
@@ -6,5 +6,5 @@ fn main() {
 }
 
 pub fn solve(n: u64) -> u64 {
-    primes::factors(n).into_iter().last().expect("no factors!")
+    prime::factors(n).into_iter().last().expect("no factors!")
 }

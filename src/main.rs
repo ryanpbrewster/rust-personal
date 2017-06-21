@@ -1,7 +1,7 @@
 extern crate project_euler;
 
-use project_euler::util::primes;
+use project_euler::util::prime;
 
 fn main() {
-    println!("{:?}", primes::sieve(20));
+    println!("{:?}", prime::sieve(20));
 }

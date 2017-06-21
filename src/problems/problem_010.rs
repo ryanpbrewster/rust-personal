@@ -1,4 +1,4 @@
-use util::primes::Primes;
+use util::prime::Primes;
 
 #[test]
 fn small() {

@@ -91,3 +91,34 @@ pub fn num_divisors(n: u64) -> u32 {
         |a, b| a * b,
     ) as u32
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn primes_iter() {
+        assert_eq!(
+        Primes::all().take(5).collect::<Vec<_>>(),
+        vec![2, 3, 5, 7, 11]
+        );
+    }
+
+    #[test]
+    fn primes_iter_correctness() {
+        let sieve: Vec<bool> = sieve(1_000);
+        let ps: Vec<u32> = (2..1000).filter(|&i| sieve[i as usize]).collect();
+        assert_eq!(
+        Primes::all()
+            .take_while(|&n| n < 1_000)
+            .collect::<Vec<_>>(),
+        ps
+        );
+    }
+
+    #[test]
+    fn primes_num_divisors() {
+        // assert_eq!(primes::num_divisors(28), 6);
+        assert_eq!(num_divisors(36), 9);
+    }
+}

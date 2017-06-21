@@ -5,9 +5,9 @@ pub struct Cross<A, B> {
 }
 
 impl<A, B> Cross<A, B>
-where
-    A: Clone,
-    B: Clone,
+    where
+        A: Clone,
+        B: Clone,
 {
     pub fn of(a: A, b: B) -> Cross<A, B> {
         Cross {
@@ -19,9 +19,9 @@ where
 }
 
 impl<A, B> Iterator for Cross<A, B>
-where
-    A: Iterator + Clone,
-    B: Iterator + Clone,
+    where
+        A: Iterator + Clone,
+        B: Iterator + Clone,
 {
     type Item = (A::Item, B::Item);
     fn next(&mut self) -> Option<(A::Item, B::Item)> {
@@ -101,9 +101,9 @@ impl<S: Iterator> Group<S> {
 }
 
 impl<S> Iterator for Group<S>
-where
-    S: Iterator,
-    S::Item: Eq,
+    where
+        S: Iterator,
+        S::Item: Eq,
 {
     type Item = (S::Item, usize);
     fn next(&mut self) -> Option<Self::Item> {
@@ -119,5 +119,28 @@ where
             }
             (x, count)
         })
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn crossiter_finite() {
+        let crossed: Vec<_> = Cross::of(1..3, 4..6).collect();
+        assert_eq!(crossed, vec![(1, 4), (1, 5), (2, 4), (2, 5)]);
+    }
+
+    #[test]
+    fn imerge_works() {
+        let xs = vec![1, 3, 5, 7, 9];
+        let ys = vec![2, 3, 4, 8, 9, 10];
+        let mut iter = Intersect::from(xs.iter(), ys.iter());
+
+        assert_eq!(iter.next(), Some(&3));
+        assert_eq!(iter.next(), Some(&9));
+        assert_eq!(iter.next(), None);
+        assert_eq!(iter.next(), None);
     }
 }

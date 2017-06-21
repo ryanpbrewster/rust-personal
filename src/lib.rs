@@ -50,6 +50,6 @@ pub mod util {
     pub mod grid;
     pub mod iter;
     pub mod math;
-    pub mod primes;
+    pub mod prime;
     pub mod triangle;
 }
