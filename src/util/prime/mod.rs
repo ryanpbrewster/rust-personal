@@ -2,6 +2,8 @@ use util::iter::Group;
 
 pub fn sieve(hi: usize) -> Vec<bool> {
     let mut is_prime_vec: Vec<bool> = vec![true; hi];
+    is_prime_vec[0] = false;
+    is_prime_vec[1] = false;
     for p in 2..hi {
         if is_prime_vec[p] {
             for k in p..(hi + p - 1) / p {
@@ -99,8 +101,8 @@ mod test {
     #[test]
     fn primes_iter() {
         assert_eq!(
-        Primes::all().take(5).collect::<Vec<_>>(),
-        vec![2, 3, 5, 7, 11]
+            Primes::all().take(5).collect::<Vec<_>>(),
+            vec![2, 3, 5, 7, 11]
         );
     }
 
@@ -109,10 +111,8 @@ mod test {
         let sieve: Vec<bool> = sieve(1_000);
         let ps: Vec<u32> = (2..1000).filter(|&i| sieve[i as usize]).collect();
         assert_eq!(
-        Primes::all()
-            .take_while(|&n| n < 1_000)
-            .collect::<Vec<_>>(),
-        ps
+            Primes::all().take_while(|&n| n < 1_000).collect::<Vec<_>>(),
+            ps
         );
     }
 

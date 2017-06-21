@@ -5,9 +5,9 @@ pub struct Cross<A, B> {
 }
 
 impl<A, B> Cross<A, B>
-    where
-        A: Clone,
-        B: Clone,
+where
+    A: Clone,
+    B: Clone,
 {
     pub fn of(a: A, b: B) -> Cross<A, B> {
         Cross {
@@ -19,9 +19,9 @@ impl<A, B> Cross<A, B>
 }
 
 impl<A, B> Iterator for Cross<A, B>
-    where
-        A: Iterator + Clone,
-        B: Iterator + Clone,
+where
+    A: Iterator + Clone,
+    B: Iterator + Clone,
 {
     type Item = (A::Item, B::Item);
     fn next(&mut self) -> Option<(A::Item, B::Item)> {
@@ -101,9 +101,9 @@ impl<S: Iterator> Group<S> {
 }
 
 impl<S> Iterator for Group<S>
-    where
-        S: Iterator,
-        S::Item: Eq,
+where
+    S: Iterator,
+    S::Item: Eq,
 {
     type Item = (S::Item, usize);
     fn next(&mut self) -> Option<Self::Item> {

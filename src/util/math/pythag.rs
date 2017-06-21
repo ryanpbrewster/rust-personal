@@ -92,27 +92,21 @@ mod test {
     #[test]
     fn pythag_triple_tree_branch() {
         assert_eq!(
-        Triple::new(3, 4, 5).branch().collect::<Vec<_>>(),
-        vec![
-            Triple::new(8, 15, 17),
-            Triple::new(20, 21, 29),
-            Triple::new(5, 12, 13),
-        ]
+            Triple::new(3, 4, 5).branch().collect::<Vec<_>>(),
+            vec![
+                Triple::new(8, 15, 17),
+                Triple::new(20, 21, 29),
+                Triple::new(5, 12, 13),
+            ]
         );
     }
 
     #[test]
     fn pythag_triple_scaling() {
+        assert_eq!(Triple::new(3, 4, 5).scaled(11), Triple::new(33, 44, 55));
         assert_eq!(
-        Triple::new(3, 4, 5).scaled(11),
-        Triple::new(33, 44, 55)
-        );
-        assert_eq!(
-        Triple::new(3, 4, 5)
-            .scaled_triples()
-            .nth(10)
-            .unwrap(),
-        Triple::new(33, 44, 55)
+            Triple::new(3, 4, 5).scaled_triples().nth(10).unwrap(),
+            Triple::new(33, 44, 55)
         );
     }
 }

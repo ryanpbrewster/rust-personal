@@ -22,8 +22,8 @@ impl<T> Triangle<T> {
     }
 
     pub fn from_file(mut fin: File) -> Result<Triangle<T>, String>
-        where
-            T: FromStr,
+    where
+        T: FromStr,
     {
         let mut s = String::new();
         fin.read_to_string(&mut s).map_err(
