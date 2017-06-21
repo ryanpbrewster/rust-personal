@@ -7,6 +7,9 @@
 
 use std::ops::Index;
 use std::ops::IndexMut;
+use std::fs::File;
+use std::io::Read;
+use std::str::FromStr;
 
 #[derive(Debug)]
 pub struct Triangle<T> {
@@ -17,6 +20,28 @@ impl<T> Triangle<T> {
     pub fn new(contents: Vec<T>) -> Triangle<T> {
         Triangle { contents: contents }
     }
+
+    pub fn from_file(mut fin: File) -> Result<Triangle<T>, String>
+        where
+            T: FromStr,
+    {
+        let mut s = String::new();
+        fin.read_to_string(&mut s).map_err(
+            |_| "could not read file",
+        )?;
+
+        let mut contents: Vec<T> = Vec::new();
+        for line in s.lines() {
+            for tok in line.split_whitespace() {
+                contents.push(tok.parse::<T>().map_err(|_| {
+                    format!("could not parse token: {}", tok)
+                })?);
+            }
+        }
+
+        Ok(Triangle::new(contents))
+    }
+
     pub fn height(&self) -> usize {
         let n = self.contents.len();
         // Observe that h*(h+1)/2 == n  --> h = 1/2 * (sqrt(8 * n + 1) - 1)
