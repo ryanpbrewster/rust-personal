@@ -33,7 +33,9 @@ pub fn choose(n: u64, k: u64) -> u64 {
 }
 
 pub fn powmod<T>(b: &T, e: &T, m: &T) -> T
-    where T: Integer + Clone {
+where
+    T: Integer + Clone,
+{
     if e.is_zero() {
         T::one()
     } else {
