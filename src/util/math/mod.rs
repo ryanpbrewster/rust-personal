@@ -1,5 +1,6 @@
 use std::cmp::min;
 use std::convert::From;
+use num::Integer;
 
 pub mod pythag;
 
@@ -29,6 +30,23 @@ pub fn choose(n: u64, k: u64) -> u64 {
     // we can switch between them to minimize the number of multiplies.
     let kk = min(k, n - k);
     (1..kk + 1).fold(1, |acc, i| acc * (n - kk + i) / i)
+}
+
+pub fn powmod<T>(b: &T, e: &T, m: &T) -> T
+    where T: Integer + Clone {
+    if e.is_zero() {
+        T::one()
+    } else {
+        let two = T::one() + T::one();
+        let (e_div_2, e_mod_2) = e.div_mod_floor(&two);
+        let t: T = powmod(b, &e_div_2, m);
+        let t_sq: T = (t.clone() * t).mod_floor(m);
+        if e_mod_2.is_zero() {
+            t_sq
+        } else {
+            (t_sq * b.clone()).mod_floor(m)
+        }
+    }
 }
 
 pub struct Digits {
