@@ -24,11 +24,13 @@ pub fn solve(bound: usize) -> usize {
     q.push_back(pythag::Triple::root());
     while let Some(t0) = q.pop_front() {
         let perimeter = t0.sum() as usize;
-        for p in (1..).map(|k| k * perimeter).take_while(|&p| p < bound) {
-            xs[p] += 1;
-        }
-        for t in t0.branch().filter(|t| (t.sum() as usize) < bound) {
-            q.push_back(t);
+        if perimeter < bound {
+            for p in (1..).map(|k| k * perimeter).take_while(|&p| p < bound) {
+                xs[p] += 1;
+            }
+            for t in t0.branch() {
+                q.push_back(t);
+            }
         }
     }
 
