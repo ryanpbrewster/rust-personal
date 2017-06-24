@@ -14,6 +14,18 @@ pub fn sieve(hi: usize) -> Vec<bool> {
     is_prime_vec
 }
 
+pub fn test(n: u64) -> bool {
+    if n < 2 {
+        return false;
+    }
+    for i in (2..).take_while(|&i| i*i <= n) {
+        if n % i == 0 {
+            return false;
+        }
+    }
+    true
+}
+
 pub struct Primes {
     sieve_arr: Vec<bool>,
     idx: usize,
