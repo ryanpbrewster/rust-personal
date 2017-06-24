@@ -2,7 +2,7 @@
 pub struct Triple {
     pub a: u32,
     pub b: u32,
-    pub c: u32
+    pub c: u32,
 }
 
 impl Triple {
@@ -29,9 +29,21 @@ impl Triple {
     }
     pub fn branch(&self) -> Vec<Triple> {
         vec![
-            Triple::new(2 * self.c - 2 * self.a + self.b, 2 * self.c - self.a + 2 * self.b, 3 * self.c - 2 * self.a + 2 * self.b),
-            Triple::new(2 * self.c + 2 * self.a + self.b, 2 * self.c + self.a + 2 * self.b, 3 * self.c + 2 * self.a + 2 * self.b),
-            Triple::new(2 * self.c + self.a - 2 * self.b, 2 * self.c + 2 * self.a - self.b, 3 * self.c + 2 * self.a - 2 * self.b),
+            Triple {
+                a: 2 * self.c - 2 * self.a + self.b,
+                b: 2 * self.c - self.a + 2 * self.b,
+                c: 3 * self.c - 2 * self.a + 2 * self.b,
+            },
+            Triple {
+                a: 2 * self.c + 2 * self.a + self.b,
+                b: 2 * self.c + self.a + 2 * self.b,
+                c: 3 * self.c + 2 * self.a + 2 * self.b,
+            },
+            Triple {
+                a: 2 * self.c + self.a - 2 * self.b,
+                b: 2 * self.c + 2 * self.a - self.b,
+                c: 3 * self.c + 2 * self.a - 2 * self.b,
+            },
         ]
     }
 }
