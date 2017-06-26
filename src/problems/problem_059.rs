@@ -25,8 +25,12 @@ and the knowledge that the plain text must contain common English words,
 decrypt the message and find the sum of the ASCII values in the original text.
 */
 
+use rayon::prelude::*;
+
 pub fn solve(cipher_text: &[u8], key_length: usize) -> Vec<u8> {
-    XorKeys::of_length(key_length)
+    let all_keys: Vec<Vec<u8>> = XorKeys::of_length(key_length).collect();
+    all_keys
+        .into_par_iter()
         .max_by_key(|key| score(decrypt(cipher_text, key)))
         .expect("length must be > 0")
 }
@@ -98,12 +102,8 @@ mod test {
 
     #[test]
     fn keys() {
-        let mut count: u32 = 0;
-        for _ in XorKeys::of_length(3) {
-            count += 1;
-        }
-
-        let expected = ((HI - LO + 1) as u32).pow(3);
+        let count = XorKeys::of_length(3).count();
+        let expected = ((HI - LO + 1) as usize).pow(3);
         assert_eq!(count, expected);
     }
 
