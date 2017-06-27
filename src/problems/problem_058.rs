@@ -21,61 +21,28 @@ use util::prime;
 // both diagonals first falls below 10%?
 
 pub fn solve(bound: f64) -> u64 {
-    let mut yes = 0;
-    let mut no = 1;
+    let level = (1..).map(|lvl| {
+        // At each new level of the spiral we have 4 diagonal entries.
+        // The last one (lower right) is 9, 25, 49, ... == (2l+1)^2
+        // The other entries are lower by 2l (e.g., l=3 => 49 - 6 == 43).
+        let end = (2 * lvl + 1) * (2 * lvl + 1);
+        let diagonals = (0..4).map(|i| end - 2 * i * lvl);
+        diagonals.filter(|&n| prime::test(n)).count()
+    }).scan(0, |acc, v| {
+        // Create a cumulative sum.
+        let t = *acc;
+        *acc += v;
+        Some(t)
+    }).enumerate().skip(1).find(|&(lvl, cnt)| {
+        (cnt as f64) / (1.0 + 4.0 * lvl as f64) < bound
+    }).unwrap().0 as u64;
 
-    println!("solving for {}", bound);
-
-    let mut spiral = Spiral::new();
-    while let Some(xs) = spiral.next() {
-        for x in xs {
-            if prime::test(x) {
-                yes += 1;
-            } else {
-                no += 1;
-            }
-        }
-        let chi = (yes as f64) / (yes as f64 + no as f64);
-        if chi < bound {
-            return 2 * spiral.level - 1;
-        }
-    }
-
-    0
-}
-
-struct Spiral {
-    pub level: u64,
-    n: u64,
-}
-
-impl Spiral {
-    pub fn new() -> Spiral {
-        Spiral { level: 1, n: 3 }
-    }
-}
-
-impl Iterator for Spiral {
-    type Item = Vec<u64>;
-    fn next(&mut self) -> Option<Vec<u64>> {
-        let xs: Vec<u64> = (0..4).map(|i| self.n + 2 * self.level * i).collect();
-        self.n += 8 * self.level + 2;
-        self.level += 1;
-        Some(xs)
-    }
+    2 * level + 1
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
-
-    #[test]
-    fn spiral() {
-        let mut s = Spiral::new();
-        assert_eq!(s.next(), Some(vec![3, 5, 7, 9]));
-        assert_eq!(s.next(), Some(vec![13, 17, 21, 25]));
-        assert_eq!(s.next(), Some(vec![31, 37, 43, 49]));
-    }
 
     #[test]
     fn main() {
