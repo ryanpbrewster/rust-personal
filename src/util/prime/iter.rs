@@ -1,25 +1,45 @@
 pub struct Primes {
     sieve_arr: Vec<bool>,
+    sieve_start: usize,
     idx: usize,
+    past: Vec<usize>,
 }
 
 impl Primes {
     pub fn all() -> Primes {
         Primes {
-            sieve_arr: vec![false, false, true],
-            idx: 1,
+            sieve_arr: vec![true],
+            sieve_start: 2,
+            idx: 2,
+            past: Vec::new(),
         }
     }
+
+    fn end(&self) -> usize {
+        self.sieve_start + self.sieve_arr.len()
+    }
     fn extend_sieve(&mut self) {
+        // Clear and double the size of the sieve
+        self.sieve_start += self.sieve_arr.len();
+        for i in self.sieve_arr.iter_mut() {
+            *i = true;
+        }
         let new_len = 2 * self.sieve_arr.len();
         self.sieve_arr.resize(new_len, true);
 
-        for i in (2..).take_while(|&i| i * i < new_len) {
-            if self.sieve_arr[i] {
-                for j in (i..).take_while(|&j| i * j < new_len) {
-                    self.sieve_arr[i * j] = false;
-                }
+        let end = self.end();
+        for &p in self.past.iter().take_while(|&p| p * p < end) {
+            let mut i = (self.sieve_start + p - 1) / p * p - self.sieve_start;
+            while i < self.sieve_arr.len() {
+                self.sieve_arr[i] = false;
+                i += p;
             }
+        }
+    }
+    fn increment(&mut self) {
+        self.idx += 1;
+        if self.idx >= self.end() {
+            self.extend_sieve();
         }
     }
 }
@@ -27,16 +47,26 @@ impl Primes {
 impl Iterator for Primes {
     type Item = u32;
     fn next(&mut self) -> Option<Self::Item> {
-        self.idx += 1;
-        loop {
-            if self.idx >= self.sieve_arr.len() {
-                self.extend_sieve();
-            }
-            if self.sieve_arr[self.idx] {
-                break;
-            }
-            self.idx += 1;
+        while !self.sieve_arr[self.idx - self.sieve_start] {
+            self.increment();
         }
-        Some(self.idx as u32)
+        let p = self.idx;
+        self.past.push(p);
+        self.increment();
+        Some(p as u32)
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn small() {
+        let ps: Vec<u32> = Primes::all().take(20).collect();
+        assert_eq!(
+            ps,
+            vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71]
+        );
     }
 }
