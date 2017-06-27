@@ -1,4 +1,4 @@
-use util::prime::Primes;
+use util::prime;
 
 #[test]
 fn small() {
@@ -17,5 +17,5 @@ fn huge() {
 }
 
 pub fn solve(n: u32) -> u32 {
-    Primes::all().nth((n - 1) as usize).unwrap()
+    prime::all().nth((n - 1) as usize).unwrap()
 }
