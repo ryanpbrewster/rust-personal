@@ -68,20 +68,14 @@ mod test {
 
     #[test]
     fn primes_iter() {
-        assert_eq!(
-            all().take(5).collect::<Vec<_>>(),
-            vec![2, 3, 5, 7, 11]
-        );
+        assert_eq!(all().take(5).collect::<Vec<_>>(), vec![2, 3, 5, 7, 11]);
     }
 
     #[test]
     fn primes_iter_correctness() {
         let sieve: Vec<bool> = sieve(1_000);
         let ps: Vec<u32> = (2..1000).filter(|&i| sieve[i as usize]).collect();
-        assert_eq!(
-            all().take_while(|&n| n < 1_000).collect::<Vec<_>>(),
-            ps
-        );
+        assert_eq!(all().take_while(|&n| n < 1_000).collect::<Vec<_>>(), ps);
     }
 
     #[test]

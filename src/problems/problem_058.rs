@@ -46,7 +46,7 @@ pub fn solve(bound: f64) -> u64 {
 
 struct Spiral {
     pub level: u64,
-    n: u64
+    n: u64,
 }
 
 impl Spiral {

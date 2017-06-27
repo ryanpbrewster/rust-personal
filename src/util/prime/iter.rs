@@ -40,4 +40,3 @@ impl Iterator for Primes {
         Some(self.idx as u32)
     }
 }
-
