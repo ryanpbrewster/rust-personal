@@ -1,11 +1,5 @@
-#![feature(test)]
-extern crate test;
-
-extern crate project_euler;
-
 use test::Bencher;
 use project_euler::util::prime;
-use std::iter::Sum;
 
 #[bench]
 fn all(bench: &mut Bencher) {

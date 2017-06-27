@@ -1,10 +1,3 @@
-#![feature(test)]
-extern crate test;
-
-extern crate rand;
-
-extern crate project_euler;
-
 use test::Bencher;
 use project_euler::util::prime;
 
