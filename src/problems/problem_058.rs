@@ -21,21 +21,28 @@ use util::prime;
 // both diagonals first falls below 10%?
 
 pub fn solve(bound: f64) -> u64 {
-    let level = (1..).map(|lvl| {
-        // At each new level of the spiral we have 4 diagonal entries.
-        // The last one (lower right) is 9, 25, 49, ... == (2l+1)^2
-        // The other entries are lower by 2l (e.g., l=3 => 49 - 6 == 43).
-        let end = (2 * lvl + 1) * (2 * lvl + 1);
-        let diagonals = (0..4).map(|i| end - 2 * i * lvl);
-        diagonals.filter(|&n| prime::test(n)).count()
-    }).scan(0, |acc, v| {
-        // Create a cumulative sum.
-        let t = *acc;
-        *acc += v;
-        Some(t)
-    }).enumerate().skip(1).find(|&(lvl, cnt)| {
-        (cnt as f64) / (1.0 + 4.0 * lvl as f64) < bound
-    }).unwrap().0 as u64;
+    let level = (1..)
+        .map(|lvl| {
+            // At each new level of the spiral we have 4 diagonal entries.
+            // The last one (lower right) is 9, 25, 49, ... == (2l+1)^2
+            // The other entries are lower by 2l (e.g., l=3 => 49 - 6 == 43).
+            let end = (2 * lvl + 1) * (2 * lvl + 1);
+            let diagonals = (0..4).map(|i| end - 2 * i * lvl);
+            diagonals.filter(|&n| prime::test(n)).count()
+        })
+        .scan(0, |acc, v| {
+            // Create a cumulative sum.
+            let t = *acc;
+            *acc += v;
+            Some(t)
+        })
+        .enumerate()
+        .skip(1)
+        .find(|&(lvl, cnt)| {
+            (cnt as f64) / (1.0 + 4.0 * lvl as f64) < bound
+        })
+        .unwrap()
+        .0 as u64;
 
     2 * level + 1
 }

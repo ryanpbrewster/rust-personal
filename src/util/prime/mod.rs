@@ -1,7 +1,8 @@
 use util::iter::Group;
 
-pub mod iter;
 pub mod checks;
+pub mod iter;
+pub mod wheel;
 
 pub fn all() -> iter::Primes {
     iter::Primes::all()
