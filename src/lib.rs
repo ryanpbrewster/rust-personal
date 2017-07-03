@@ -42,6 +42,7 @@ pub mod problems {
     pub mod problem_048;
     pub mod problem_050;
     pub mod problem_052;
+    pub mod problem_056;
     pub mod problem_058;
     pub mod problem_059;
     pub mod problem_075;
