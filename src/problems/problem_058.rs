@@ -1,4 +1,5 @@
 use util::prime;
+use rayon::prelude::*;
 
 // Starting with 1 and spiralling anticlockwise in the following way, a square
 // spiral with side length 7 is formed.
@@ -20,31 +21,35 @@ use util::prime;
 // is the side length of the square spiral for which the ratio of primes along
 // both diagonals first falls below 10%?
 
-pub fn solve(bound: f64) -> u64 {
-    let level = (1..)
-        .map(|lvl| {
-            // At each new level of the spiral we have 4 diagonal entries.
-            // The last one (lower right) is 9, 25, 49, ... == (2l+1)^2
-            // The other entries are lower by 2l (e.g., l=3 => 49 - 6 == 43).
-            let end = (2 * lvl + 1) * (2 * lvl + 1);
-            let diagonals = (0..4).map(|i| end - 2 * i * lvl);
-            diagonals.filter(|&n| prime::test(n)).count()
-        })
-        .scan(0, |acc, v| {
-            // Create a cumulative sum.
-            let t = *acc;
-            *acc += v;
-            Some(t)
-        })
-        .enumerate()
-        .skip(1)
-        .find(|&(lvl, cnt)| {
-            (cnt as f64) / (1.0 + 4.0 * lvl as f64) < bound
-        })
-        .unwrap()
-        .0 as u64;
+pub fn solve(bound: f64) -> usize {
+    const CHUNK_SIZE: u64 = 1024;
 
-    2 * level + 1
+    let mut level: usize = 0;
+    let mut prime_count: usize = 0;
+    let mut total_count: usize = 1;
+    let chunks = (0..).map(|i| i * CHUNK_SIZE + 1..(i + 1) * CHUNK_SIZE + 1);
+    for chunk in chunks {
+        let counts: Vec<usize> = chunk
+            .into_par_iter()
+            .map(|lvl| {
+                // At each new level of the spiral we have 4 diagonal entries.
+                // The last one (lower right) is 9, 25, 49, ... == (2l+1)^2
+                // The other entries are lower by 2l (e.g., l=3 => 49 - 6 == 43).
+                let end = (2 * lvl + 1) * (2 * lvl + 1);
+                let diagonals = (0..4).map(|i| end - 2 * i * lvl);
+                diagonals.filter(|&n| prime::test(n)).count()
+            })
+            .collect();
+        for cnt in counts {
+            level += 1;
+            prime_count += cnt;
+            total_count += 4;
+            if (prime_count as f64) / (total_count as f64) < bound {
+                return 2 * level + 1;
+            }
+        }
+    }
+    0
 }
 
 #[cfg(test)]

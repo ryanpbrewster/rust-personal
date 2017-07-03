@@ -1,9 +1,9 @@
 pub fn trial_division(n: u64) -> bool {
     use util::prime::wheel::Wheel;
-    if n == 2 || n == 3 || n == 5 {
+    if n == 2 || n == 3 || n == 5 || n == 7 {
         return true;
     }
-    if n < 2 || n % 2 == 0 || n % 3 == 0 || n % 5 == 0 {
+    if n < 2 || n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 {
         return false;
     }
 
