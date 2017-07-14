@@ -1,39 +1,7 @@
 use std::ops::Range;
+
 // Find the number in the `seeds` Range that produces the longest Collatz chain
-pub fn solve(seeds: Range<u64>) -> u64 {
-    seeds.max_by_key(|&s| Collatz::start(s).count()).expect(
-        "`seeds` must not be empty",
-    )
-}
-
-struct Collatz(u64);
-
-impl Collatz {
-    pub fn start(seed: u64) -> Collatz {
-        Collatz(seed)
-    }
-}
-
-impl Iterator for Collatz {
-    type Item = u64;
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.0 == 1 {
-            return None;
-        }
-
-        let v = self.0;
-        if self.0 % 2 == 0 {
-            self.0 /= 2;
-        } else {
-            self.0 = 3 * self.0 + 1;
-        }
-        Some(v)
-    }
-}
-
-
-// A faster "clever" (maybe ironic, it's unclear to me) solution
-pub fn solve_fast(seeds: Range<usize>) -> usize {
+pub fn solve(seeds: Range<usize>) -> usize {
     let mut memo: Vec<Option<usize>> = vec![None; seeds.end];
     memo[1] = Some(1);
 
@@ -65,18 +33,52 @@ pub fn solve_fast(seeds: Range<usize>) -> usize {
 mod test {
     use super::*;
 
+    fn brute_force(seeds: Range<usize>) -> usize {
+        seeds.max_by_key(|&s| Collatz::start(s).count()).expect(
+            "`seeds` must not be empty",
+        )
+    }
+
+    struct Collatz(usize);
+
+    impl Collatz {
+        pub fn start(seed: usize) -> Collatz {
+            Collatz(seed)
+        }
+    }
+
+    impl Iterator for Collatz {
+        type Item = usize;
+        fn next(&mut self) -> Option<Self::Item> {
+            if self.0 == 1 {
+                return None;
+            }
+
+            let v = self.0;
+            if self.0 % 2 == 0 {
+                self.0 /= 2;
+            } else {
+                self.0 = 3 * self.0 + 1;
+            }
+            Some(v)
+        }
+    }
+
+
+
     #[test]
     fn small() {
         assert_eq!(solve(1..20), 19);
     }
 
+
     #[test]
-    fn main() {
-        assert_eq!(solve(1..1_000_000), 837799);
+    fn medium() {
+        assert_eq!(solve(1..100_000), brute_force(1..100_000));
     }
 
     #[test]
-    fn fast() {
-        assert_eq!(solve_fast(1..1_000_000), 837799);
+    fn main() {
+        assert_eq!(solve(1..1_000_000), 837799);
     }
 }
