@@ -17,11 +17,14 @@ use util::math::Digits;
 pub fn solve(bound: u32) -> u64 {
     let squares: Vec<u32> = (1..).map(|n| n * n).take_while(|&n| n < bound).collect();
     let mut palindromic_cumsums: HashSet<u32> = HashSet::new();
-    for start in 0 .. squares.len() - 1 {
-        let cumsums = squares[start+1..].iter().scan(squares[start], |acc, &n| {
-            *acc += n;
-            Some(*acc)
-        }).take_while(|&n| n < bound);
+    for start in 0..squares.len() - 1 {
+        let cumsums = squares[start + 1..]
+            .iter()
+            .scan(squares[start], |acc, &n| {
+                *acc += n;
+                Some(*acc)
+            })
+            .take_while(|&n| n < bound);
         for cs in cumsums {
             if is_palindrome(cs) {
                 palindromic_cumsums.insert(cs);
@@ -38,7 +41,7 @@ fn is_palindrome(n: u32) -> bool {
 
 #[cfg(test)]
 mod test {
- use super::*;
+    use super::*;
 
     #[test]
     fn small() {

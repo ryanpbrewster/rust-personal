@@ -33,7 +33,10 @@ fn max_possible_digit_sum(n: &BigUint) -> u32 {
 }
 
 fn digit_sum(n: &BigUint) -> u32 {
-    n.to_str_radix(10).chars().map(|ch| ch.to_digit(10).unwrap()).sum()
+    n.to_str_radix(10)
+        .chars()
+        .map(|ch| ch.to_digit(10).unwrap())
+        .sum()
 }
 
 #[derive(Eq, Ord, Clone, Debug)]
@@ -59,7 +62,7 @@ impl DigitSumPower {
         DigitSumPower {
             base: base,
             power: 1,
-            n: BigUint::from(base)
+            n: BigUint::from(base),
         }
     }
     fn increment(&mut self) {

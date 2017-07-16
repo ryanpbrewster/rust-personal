@@ -3,16 +3,24 @@ use num::{One, Zero};
 
 pub fn solve(num_turns: usize) -> u32 {
     let mut g = GameState::new();
-    for _ in 0 .. num_turns {
+    for _ in 0..num_turns {
         g.play_one();
     }
 
-    let total: BigUint = g.blue_count_ways.iter().fold(BigUint::zero(), |acc, x| acc + x);
+    let total: BigUint = g.blue_count_ways.iter().fold(
+        BigUint::zero(),
+        |acc, x| acc + x,
+    );
 
     let blues_to_win = num_turns / 2 + 1;
-    let winning: BigUint = g.blue_count_ways[blues_to_win..].iter().fold(BigUint::zero(), |acc, x| acc + x);
+    let winning: BigUint = g.blue_count_ways[blues_to_win..].iter().fold(
+        BigUint::zero(),
+        |acc, x| acc + x,
+    );
 
-    total.div_floor(&winning).to_u32().expect("i hope that this fits into a u32")
+    total.div_floor(&winning).to_u32().expect(
+        "i hope that this fits into a u32",
+    )
 }
 
 struct GameState {
@@ -41,9 +49,12 @@ impl GameState {
         let ways_n = &prev[self.turn] * BigUint::from(self.blue_discs); // picking any blue disc
         self.blue_count_ways.push(ways_n);
 
-        for i in 1 .. prev.len() {
-            // To get `i` blue discs we can either start with `i-1` and pick blue, or start with `i` and pick red.
-            let ways_i = &prev[i-1] * BigUint::from(self.blue_discs) + &prev[i] * BigUint::from(self.red_discs);
+        for i in 1..prev.len() {
+            // To get `i` blue discs we can either:
+            //   - start with `i-1` and pick blue
+            //   - start with `i` and pick red.
+            let ways_i = &prev[i - 1] * BigUint::from(self.blue_discs) +
+                &prev[i] * BigUint::from(self.red_discs);
             self.blue_count_ways[i] = ways_i;
         }
 

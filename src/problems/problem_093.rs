@@ -69,12 +69,19 @@ enum Op {
     SubtractLeft,
     Multiply,
     DivideRight,
-    DivideLeft
+    DivideLeft,
 }
 impl Op {
     fn all() -> [Op; 6] {
         use self::Op::*;
-        [Add, SubtractLeft, SubtractRight, Multiply, DivideLeft, DivideRight]
+        [
+            Add,
+            SubtractLeft,
+            SubtractRight,
+            Multiply,
+            DivideLeft,
+            DivideRight,
+        ]
     }
     fn apply(&self, x: f64, y: f64) -> f64 {
         use self::Op::*;
@@ -95,22 +102,22 @@ fn explore(vis: &mut HashSet<i32>, vs: &[f64]) {
             vis.insert(v as i32);
         }
     } else {
-       for i in 0 .. vs.len() {
-           for j in i + 1 .. vs.len() {
-               let xs: Vec<f64> = vs.iter()
-                   .cloned()
-                   .enumerate()
-                   .filter(|&(idx, _)| idx != i && idx != j)
-                   .map(|(_, v)| v)
-                   .collect();
+        for i in 0..vs.len() {
+            for j in i + 1..vs.len() {
+                let xs: Vec<f64> = vs.iter()
+                    .cloned()
+                    .enumerate()
+                    .filter(|&(idx, _)| idx != i && idx != j)
+                    .map(|(_, v)| v)
+                    .collect();
                 for op in Op::all().iter() {
                     let mut ys = xs.clone();
                     ys.push(op.apply(vs[i], vs[j]));
                     explore(vis, &ys);
                 }
 
-           }
-       }
+            }
+        }
     }
 }
 
@@ -121,14 +128,16 @@ mod test {
     #[test]
     fn subsets_small() {
         assert_eq!(
-        subsets(&vec![1, 2, 3, 4], 2),
-        vec![
-            vec![2, 1],
-            vec![3, 1],
-            vec![4, 1],
-            vec![3, 2],
-            vec![4, 2],
-            vec![4, 3]]);
+            subsets(&vec![1, 2, 3, 4], 2),
+            vec![
+                vec![2, 1],
+                vec![3, 1],
+                vec![4, 1],
+                vec![3, 2],
+                vec![4, 2],
+                vec![4, 3],
+            ]
+        );
     }
 
     #[test]
