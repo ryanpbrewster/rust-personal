@@ -57,7 +57,7 @@ pub fn solve(bound: usize) -> Vec<ChainLength> {
         }
 
         for &v in chain.iter().rev() {
-            if v + last <= bound {
+            if v + last <= bound && chain_lengths[v + last] == 0 {
                 let mut child = chain.clone();
                 child.push(v + last);
                 q.push_back(child);
@@ -72,6 +72,10 @@ pub fn solve(bound: usize) -> Vec<ChainLength> {
 mod test {
     use super::*;
 
+    fn chain_length_sum(bound: usize) -> usize {
+        solve(bound)[1..].into_iter().sum::<usize>() - bound
+    }
+
     #[test]
     fn small() {
         let chain_lengths = solve(15);
@@ -84,8 +88,12 @@ mod test {
 
     #[test]
     fn main() {
-        let chain_lengths = solve(200);
-        assert_eq!(chain_lengths[1..201].into_iter().sum::<usize>() - 200, 1582);
+        assert_eq!(chain_length_sum(200), 1582);
+    }
+
+    #[test]
+    fn big() {
+        assert_eq!(chain_length_sum(2_000), 24063);
     }
 }
 
