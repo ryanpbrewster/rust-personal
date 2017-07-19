@@ -29,14 +29,17 @@ fn distribution(dice: Vec<usize>) -> Vec<f64> {
     let counts: Vec<u32> = dice.iter().fold(vec![1], |old, &n| {
         let mut updated = vec![0; old.len() + n as usize];
         for (i, &count) in old.iter().enumerate() {
-            for j in 1 .. n + 1 {
+            for j in 1..n + 1 {
                 updated[i + j] += count;
             }
         }
         updated
     });
     let total: u32 = counts.iter().cloned().sum();
-    counts.into_iter().map(|count| count as f64 / total as f64).collect()
+    counts
+        .into_iter()
+        .map(|count| count as f64 / total as f64)
+        .collect()
 }
 
 #[cfg(test)]

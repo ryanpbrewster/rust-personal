@@ -96,4 +96,3 @@ mod test {
         assert_eq!(chain_length_sum(2_000), 24063);
     }
 }
-

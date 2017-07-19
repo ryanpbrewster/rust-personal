@@ -29,7 +29,7 @@ impl Iterator for Useq {
     type Item = f64;
     fn next(&mut self) -> Option<f64> {
         let x = self.0;
-        self.0 = (1.42e9 * 2.0.powf(-x*x)).floor() * 1.0e-9;
+        self.0 = (1.42e9 * 2.0.powf(-x * x)).floor() * 1.0e-9;
         Some(x)
     }
 }
