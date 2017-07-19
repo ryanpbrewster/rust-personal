@@ -2,6 +2,10 @@
 #[macro_use]
 extern crate lazy_static;
 
+#[cfg(test)]
+#[macro_use]
+extern crate assert_approx_eq;
+
 extern crate num;
 
 extern crate petgraph;
