@@ -42,7 +42,6 @@ fn distribution(dice: Vec<usize>) -> Vec<f64> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use assert_approx_eq;
 
     #[test]
     fn distribution_small() {
