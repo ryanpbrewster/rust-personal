@@ -12,6 +12,8 @@ extern crate petgraph;
 
 extern crate rayon;
 
+extern crate rand;
+
 pub mod problems {
     pub mod problem_001;
     pub mod problem_002;
@@ -54,6 +56,7 @@ pub mod problems {
     pub mod problem_082;
     pub mod problem_083;
     pub mod problem_087;
+    pub mod problem_089;
     pub mod problem_093;
     pub mod problem_097;
     pub mod problem_099;
