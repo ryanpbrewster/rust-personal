@@ -112,7 +112,7 @@ mod test {
         assert_eq!(encode_numeral(16), "XVI");
         assert_eq!(encode_numeral(29), "XXIX");
         assert_eq!(encode_numeral(34), "XXXIV");
-        assert_eq!(encode_numeral(49), "IL");
+        assert_eq!(encode_numeral(49), "XLIX");
         assert_eq!(encode_numeral(50), "L");
         assert_eq!(encode_numeral(54), "LIV");
         assert_eq!(encode_numeral(59), "LIX");
@@ -122,8 +122,8 @@ mod test {
         assert_eq!(encode_numeral(94), "XCIV");
         assert_eq!(encode_numeral(95), "XCV");
         assert_eq!(encode_numeral(97), "XCVII");
-        assert_eq!(encode_numeral(99), "IC");
-        assert_eq!(encode_numeral(490), "XD");
+        assert_eq!(encode_numeral(99), "XCIX");
+        assert_eq!(encode_numeral(490), "CDXC");
     }
 
     #[test]
