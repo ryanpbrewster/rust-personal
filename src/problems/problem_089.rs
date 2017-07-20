@@ -30,9 +30,7 @@ form.
 pub fn solve(numeral: String) -> usize {
     let n = decode_numeral(&numeral);
     let optimal = encode_numeral(n);
-    let savings = numeral.len() - optimal.len();
-    println!("{}: {} -> {} -> {}", savings, numeral, n, optimal);
-    savings
+    numeral.len() - optimal.len()
 }
 
 fn decode_numeral(numeral: &str) -> u32 {
@@ -142,6 +140,6 @@ mod test {
         let fin = File::open(Path::new("data/p089_main.in")).expect("couldn't open file");
         let numerals = BufReader::new(fin).lines().collect::<Result<Vec<String>,_>>().expect("couldn't read file");
         let ans: usize = numerals.into_iter().map(|num| solve(num)).sum();
-        assert_eq!(ans, 901);
+        assert_eq!(ans, 743);
     }
 }
