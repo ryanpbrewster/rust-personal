@@ -3,6 +3,7 @@ use std::convert::From;
 use num::Integer;
 
 pub mod pythag;
+pub mod recurrence;
 
 // Sum[i, {i, 1, n}]
 pub fn sum(n: u32) -> u32 {

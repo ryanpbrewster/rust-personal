@@ -52,7 +52,7 @@ impl GameState {
         for i in 1..prev.len() {
             // To get `i` blue discs we can either:
             //   - start with `i-1` and pick blue
-            //   - start with `i` and pick red.
+            //   - start with `i` and pick red
             let ways_i = &prev[i - 1] * BigUint::from(self.blue_discs) +
                 &prev[i] * BigUint::from(self.red_discs);
             self.blue_count_ways[i] = ways_i;
