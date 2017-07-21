@@ -51,18 +51,18 @@ fn decode_numeral(numeral: &str) -> u32 {
 
 const NUMERAL_BREAKPOINTS: [(u32, &'static str); 13] = [
     (1000, "M"),
-    ( 900, "CM"),
-    ( 500, "D"),
-    ( 400, "CD"),
-    ( 100, "C"),
-    (  90, "XC"),
-    (  50, "L"),
-    (  40, "XL"),
-    (  10, "X"),
-    (   9, "IX"),
-    (   5, "V"),
-    (   4, "IV"),
-    (   1, "I")
+    (900, "CM"),
+    (500, "D"),
+    (400, "CD"),
+    (100, "C"),
+    (90, "XC"),
+    (50, "L"),
+    (40, "XL"),
+    (10, "X"),
+    (9, "IX"),
+    (5, "V"),
+    (4, "IV"),
+    (1, "I"),
 ];
 fn encode_numeral(n: u32) -> String {
     let mut n = n;
@@ -83,7 +83,7 @@ fn component_value(ch: char) -> u32 {
         'C' => 100,
         'D' => 500,
         'M' => 1000,
-        _ => panic!("Bad numeral component: {}", ch)
+        _ => panic!("Bad numeral component: {}", ch),
     }
 }
 
@@ -129,7 +129,7 @@ mod test {
     #[test]
     fn encode_decode_bijection() {
         let mut prng = XorShiftRng::from_seed([42, 42, 42, 42]);
-        for _ in 0 .. 1000 {
+        for _ in 0..1000 {
             let n = prng.gen_range(1, 10_000);
             assert_eq!(decode_numeral(&encode_numeral(n)), n);
         }
@@ -138,7 +138,10 @@ mod test {
     #[test]
     fn main() {
         let fin = File::open(Path::new("data/p089_main.in")).expect("couldn't open file");
-        let numerals = BufReader::new(fin).lines().collect::<Result<Vec<String>,_>>().expect("couldn't read file");
+        let numerals = BufReader::new(fin)
+            .lines()
+            .collect::<Result<Vec<String>, _>>()
+            .expect("couldn't read file");
         let ans: usize = numerals.into_iter().map(|num| solve(num)).sum();
         assert_eq!(ans, 743);
     }

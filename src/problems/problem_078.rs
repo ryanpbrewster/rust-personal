@@ -22,15 +22,12 @@ pub fn solve(m: i32) -> usize {
 
 pub struct Pentagonals {
     sign: i32,
-    m: i32
+    m: i32,
 }
 
 impl Pentagonals {
     fn new() -> Pentagonals {
-        Pentagonals {
-            sign: -1,
-            m: 1,
-        }
+        Pentagonals { sign: -1, m: 1 }
     }
 }
 
@@ -56,7 +53,28 @@ mod test {
     fn pentagonals_manual() {
         assert_eq!(
             Pentagonals::new().take(20).collect::<Vec<_>>(),
-            vec![1, 2, 5, 7, 12, 15, 22, 26, 35, 40, 51, 57, 70, 77, 92, 100, 117, 126, 145, 155]
+            vec![
+                1,
+                2,
+                5,
+                7,
+                12,
+                15,
+                22,
+                26,
+                35,
+                40,
+                51,
+                57,
+                70,
+                77,
+                92,
+                100,
+                117,
+                126,
+                145,
+                155,
+            ]
         );
     }
 
