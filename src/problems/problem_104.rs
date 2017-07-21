@@ -1,4 +1,4 @@
-use util::math::recurrence::{BigFibSeq, ModFibSeq};
+use util::math::recurrence::ModFibSeq;
 use num::Float;
 
 /*
@@ -53,6 +53,7 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
+    use util::math::recurrence::BigFibSeq;
 
     #[test]
     fn small() {
