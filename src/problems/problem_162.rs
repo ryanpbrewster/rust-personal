@@ -23,14 +23,14 @@ and not 0x1a3f and not $1A3F and not #1A3F and not 0000001A3F)
 use num::{BigUint, One, Zero};
 
 pub fn solve(max_digits: usize) -> BigUint {
-    let mut tallies: Vec<BigUint> = (0 .. 1 << 3).map(|_| BigUint::zero()).collect();
+    let mut tallies: Vec<BigUint> = (0..1 << 3).map(|_| BigUint::zero()).collect();
     tallies[0b000] = BigUint::from(13u32);
     tallies[0b001] = BigUint::one();
     tallies[0b010] = BigUint::one();
 
     let mut count = BigUint::zero();
-    for _ in 1 .. max_digits {
-        let mut tmp: Vec<BigUint> = (0 .. 1 << 3).map(|_| BigUint::zero()).collect();
+    for _ in 1..max_digits {
+        let mut tmp: Vec<BigUint> = (0..1 << 3).map(|_| BigUint::zero()).collect();
         tmp[0b000] = BigUint::from(13u32) * &tallies[0b000];
         tmp[0b001] = BigUint::from(14u32) * &tallies[0b001] + &tallies[0b000];
         tmp[0b010] = BigUint::from(14u32) * &tallies[0b010] + &tallies[0b000];
@@ -38,7 +38,8 @@ pub fn solve(max_digits: usize) -> BigUint {
         tmp[0b100] = BigUint::from(14u32) * &tallies[0b100] + &tallies[0b000];
         tmp[0b101] = BigUint::from(15u32) * &tallies[0b101] + &tallies[0b100] + &tallies[0b001];
         tmp[0b110] = BigUint::from(15u32) * &tallies[0b110] + &tallies[0b100] + &tallies[0b010];
-        tmp[0b111] = BigUint::from(16u32) * &tallies[0b111] + &tallies[0b110] + &tallies[0b101] + &tallies[0b011];
+        tmp[0b111] = BigUint::from(16u32) * &tallies[0b111] + &tallies[0b110] + &tallies[0b101] +
+            &tallies[0b011];
         tallies = tmp;
         count = count + &tallies[0b111];
     }
@@ -60,6 +61,9 @@ mod test {
 
     #[test]
     fn main() {
-        assert_eq!(solve(16).to_str_radix(16).to_uppercase(), "3D58725572C62302");
+        assert_eq!(
+            solve(16).to_str_radix(16).to_uppercase(),
+            "3D58725572C62302"
+        );
     }
 }

@@ -70,6 +70,7 @@ pub mod problems {
     pub mod problem_125;
     pub mod problem_145;
     pub mod problem_162;
+    pub mod problem_164;
     pub mod problem_197;
     pub mod problem_205;
 }
