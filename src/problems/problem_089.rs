@@ -90,7 +90,7 @@ fn component_value(ch: char) -> u32 {
 #[cfg(test)]
 mod test {
     use super::*;
-    use rand::{Rng, SeedableRng, XorShiftRng};
+    use rand::{Rng, SeedableRng};
     use std::fs::File;
     use std::io::{BufRead, BufReader};
     use std::path::Path;
@@ -126,7 +126,7 @@ mod test {
 
     #[test]
     fn encode_decode_bijection() {
-        let mut prng = XorShiftRng::from_seed([42, 42, 42, 42]);
+        let mut prng = rand_pcg::Pcg32::seed_from_u64(42);
         for _ in 0..1000 {
             let n = prng.gen_range(1, 10_000);
             assert_eq!(decode_numeral(&encode_numeral(n)), n);
