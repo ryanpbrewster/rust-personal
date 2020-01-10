@@ -1,6 +1,6 @@
+use num::Integer;
 use std::cmp::min;
 use std::convert::From;
-use num::Integer;
 
 pub mod pythag;
 pub mod recurrence;
@@ -80,7 +80,6 @@ impl Iterator for Digits {
     }
 }
 
-
 pub struct Decimals {
     n: u32,
     d: u32,
@@ -115,7 +114,6 @@ impl Iterator for Decimals {
         let q = 10 * self.n / self.d;
         self.n = (10 * self.n) % self.d;
         Some(q)
-
     }
 }
 

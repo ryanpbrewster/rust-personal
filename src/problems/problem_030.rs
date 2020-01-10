@@ -1,4 +1,4 @@
-use util::math::Digits;
+use crate::util::math::Digits;
 
 pub fn solve() -> u32 {
     // Observe that there is no n >= 10^6 such that f(n) == n.

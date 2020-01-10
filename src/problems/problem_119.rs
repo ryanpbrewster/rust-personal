@@ -1,6 +1,6 @@
 use num::BigUint;
-use std::collections::BinaryHeap;
 use std::cmp::{Ord, Ordering};
+use std::collections::BinaryHeap;
 
 pub fn solve(n: usize) -> BigUint {
     let mut count = 0;
@@ -70,7 +70,6 @@ impl DigitSumPower {
         self.n = &self.n * BigUint::from(self.base);
     }
 }
-
 
 #[cfg(test)]
 mod test {

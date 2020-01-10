@@ -1,4 +1,4 @@
-use util::prime;
+use crate::util::prime;
 use rayon::prelude::*;
 
 // Starting with 1 and spiralling anticlockwise in the following way, a square

@@ -1,5 +1,5 @@
-use util::grid::Grid;
-use util::iter::Cross;
+use crate::util::grid::Grid;
+use crate::util::iter::Cross;
 
 #[derive(Clone, Copy)]
 enum Direction {
@@ -15,7 +15,6 @@ impl Direction {
         [Down, Right, UpDiag, DownDiag]
     }
 }
-
 
 pub fn solve(grid: &Grid<i32>, n: usize) -> Option<i32> {
     Direction::all()
@@ -52,7 +51,6 @@ fn analyze(grid: &Grid<i32>, n: usize, dir: Direction) -> Option<i32> {
                 .fold(1, |a, b| a * b)
         })
         .max()
-
 }
 
 #[cfg(test)]

@@ -34,9 +34,9 @@ mod test {
     use super::*;
 
     fn brute_force(seeds: Range<usize>) -> usize {
-        seeds.max_by_key(|&s| Collatz::start(s).count()).expect(
-            "`seeds` must not be empty",
-        )
+        seeds
+            .max_by_key(|&s| Collatz::start(s).count())
+            .expect("`seeds` must not be empty")
     }
 
     struct Collatz(usize);
@@ -64,13 +64,10 @@ mod test {
         }
     }
 
-
-
     #[test]
     fn small() {
         assert_eq!(solve(1..20), 19);
     }
-
 
     #[test]
     fn medium() {

@@ -7,8 +7,8 @@ Considering natural numbers of the form, ab, where a, b < 100, what is the
 maximum digital sum?
 */
 
+use crate::util::iter::Cross;
 use num::pow;
-use util::iter::Cross;
 use num::BigUint;
 
 pub fn solve(base_bound: u32, exponent_bound: u32) -> u32 {

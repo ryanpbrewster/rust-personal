@@ -1,6 +1,6 @@
-use util::grid::Grid;
-use petgraph::graph::Graph;
+use crate::util::grid::Grid;
 use petgraph::algo;
+use petgraph::graph::Graph;
 
 pub fn solve(weight_grid: &Grid<u32>) -> u32 {
     let mut g = Graph::<u32, u32>::new();
@@ -52,9 +52,9 @@ pub fn solve(weight_grid: &Grid<u32>) -> u32 {
     }
 
     let shortest_paths = algo::dijkstra(&g, left, Some(right), |e| *e.weight());
-    *shortest_paths.get(&right).expect(
-        "dijkstra should calculate costs for every node in the graph",
-    )
+    *shortest_paths
+        .get(&right)
+        .expect("dijkstra should calculate costs for every node in the graph")
 }
 
 #[cfg(test)]

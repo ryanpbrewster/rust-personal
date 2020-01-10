@@ -1,4 +1,4 @@
-use util::prime;
+use crate::util::prime;
 use std::collections::{HashSet, VecDeque};
 
 pub fn solve(consecutive: usize, num_factors: usize) -> u64 {

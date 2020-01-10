@@ -1,6 +1,5 @@
+use crate::util::math::Digits;
 use std::collections::HashSet;
-use util::math::Digits;
-
 
 pub fn solve() -> u32 {
     let valid_ranges = vec![(2..10, 1_000..10_000), (10..100, 100..1_000)];

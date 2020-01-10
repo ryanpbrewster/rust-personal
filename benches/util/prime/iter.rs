@@ -1,5 +1,5 @@
-use test::Bencher;
 use project_euler::util::prime;
+use test::Bencher;
 
 // test util::prime::iter::all_001k         ... bench:       6,991 ns/iter (+/- 4,169)
 // test util::prime::iter::all_010k         ... bench:      66,074 ns/iter (+/- 33,707)
@@ -8,7 +8,6 @@ use project_euler::util::prime;
 // test util::prime::iter::all_040k         ... bench:     309,033 ns/iter (+/- 190,585)
 // test util::prime::iter::all_050k         ... bench:     337,767 ns/iter (+/- 166,300)
 // test util::prime::iter::all_100k         ... bench:     726,656 ns/iter (+/- 350,477)
-
 
 #[bench]
 fn all_001k(bench: &mut Bencher) {

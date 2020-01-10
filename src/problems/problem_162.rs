@@ -38,8 +38,10 @@ pub fn solve(max_digits: usize) -> BigUint {
         tmp[0b100] = BigUint::from(14u32) * &tallies[0b100] + &tallies[0b000];
         tmp[0b101] = BigUint::from(15u32) * &tallies[0b101] + &tallies[0b100] + &tallies[0b001];
         tmp[0b110] = BigUint::from(15u32) * &tallies[0b110] + &tallies[0b100] + &tallies[0b010];
-        tmp[0b111] = BigUint::from(16u32) * &tallies[0b111] + &tallies[0b110] + &tallies[0b101] +
-            &tallies[0b011];
+        tmp[0b111] = BigUint::from(16u32) * &tallies[0b111]
+            + &tallies[0b110]
+            + &tallies[0b101]
+            + &tallies[0b011];
         tallies = tmp;
         count = count + &tallies[0b111];
     }

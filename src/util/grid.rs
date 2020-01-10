@@ -1,7 +1,7 @@
-use std::ops::Index;
-use std::ops::IndexMut;
 use std::fs::File;
 use std::io::Read;
+use std::ops::Index;
+use std::ops::IndexMut;
 use std::str::FromStr;
 
 #[derive(Clone, Debug)]
@@ -35,9 +35,8 @@ impl<T> Grid<T> {
         T: FromStr,
     {
         let mut s = String::new();
-        fin.read_to_string(&mut s).map_err(
-            |_| "could not read file",
-        )?;
+        fin.read_to_string(&mut s)
+            .map_err(|_| "could not read file")?;
 
         let mut contents: Vec<T> = Vec::new();
         let lines: Vec<_> = s.lines().collect();
@@ -46,9 +45,10 @@ impl<T> Grid<T> {
         let num_cols = lines[0].split_whitespace().count();
         for line in lines {
             for tok in line.split_whitespace() {
-                contents.push(tok.parse::<T>().map_err(|_| {
-                    format!("could not parse token: {}", tok)
-                })?);
+                contents.push(
+                    tok.parse::<T>()
+                        .map_err(|_| format!("could not parse token: {}", tok))?,
+                );
             }
         }
 

@@ -31,12 +31,13 @@ mod test {
     fn main() {
         let mut fin = File::open(Path::new("data/p099_main.in")).expect("couldn't open file");
         let mut s = String::new();
-        fin.read_to_string(&mut s).expect(
-            "could not read file into memory",
-        );
-        let be_pairs: Vec<(u32, u32)> = s.lines()
+        fin.read_to_string(&mut s)
+            .expect("could not read file into memory");
+        let be_pairs: Vec<(u32, u32)> = s
+            .lines()
             .map(|line| {
-                let vs: Vec<u32> = line.split_whitespace()
+                let vs: Vec<u32> = line
+                    .split_whitespace()
                     .map(|tok| tok.parse::<u32>().unwrap())
                     .collect();
                 (vs[0], vs[1])

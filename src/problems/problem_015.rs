@@ -1,4 +1,4 @@
-use util::math;
+use crate::util::math;
 
 #[test]
 fn small() {

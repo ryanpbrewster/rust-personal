@@ -47,13 +47,16 @@ fn score(plain_text: Vec<u8>) -> u64 {
 }
 
 fn char_score(ch: u8) -> u64 {
-    if is_vowel(ch as char) { 1 } else { 0 }
+    if is_vowel(ch as char) {
+        1
+    } else {
+        0
+    }
 }
 
 fn is_vowel(ch: char) -> bool {
     ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'
 }
-
 
 const LO: u8 = b'a';
 const HI: u8 = b'z';

@@ -1,4 +1,4 @@
-use util::prime;
+use crate::util::prime;
 
 pub fn solve(hi: usize) -> usize {
     // Find the prime, p, where:
@@ -8,7 +8,8 @@ pub fn solve(hi: usize) -> usize {
     let sieve = prime::sieve(hi);
 
     let ps: Vec<usize> = (2..hi).filter(|&i| sieve[i]).collect();
-    let cum_sum: Vec<usize> = ps.iter()
+    let cum_sum: Vec<usize> = ps
+        .iter()
         .scan(0, |acc, v| {
             *acc = *acc + v;
             Some(*acc - v)

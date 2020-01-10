@@ -5,10 +5,10 @@
 //   4 5 6
 //   7 8 9 10
 
-use std::ops::Index;
-use std::ops::IndexMut;
 use std::fs::File;
 use std::io::Read;
+use std::ops::Index;
+use std::ops::IndexMut;
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -26,16 +26,16 @@ impl<T> Triangle<T> {
         T: FromStr,
     {
         let mut s = String::new();
-        fin.read_to_string(&mut s).map_err(
-            |_| "could not read file",
-        )?;
+        fin.read_to_string(&mut s)
+            .map_err(|_| "could not read file")?;
 
         let mut contents: Vec<T> = Vec::new();
         for line in s.lines() {
             for tok in line.split_whitespace() {
-                contents.push(tok.parse::<T>().map_err(|_| {
-                    format!("could not parse token: {}", tok)
-                })?);
+                contents.push(
+                    tok.parse::<T>()
+                        .map_err(|_| format!("could not parse token: {}", tok))?,
+                );
             }
         }
 
@@ -76,7 +76,6 @@ impl<'a, T> Levels<'a, T> {
         }
     }
 }
-
 
 fn idx(lvl: usize) -> usize {
     lvl * (lvl + 1) / 2

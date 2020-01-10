@@ -1,4 +1,4 @@
-use util::prime;
+use crate::util::prime;
 
 #[test]
 fn small() {
@@ -12,8 +12,7 @@ fn main() {
 
 // Sum of all primes < hi
 pub fn solve(hi: u32) -> u64 {
-    prime::all().take_while(|&p| p < hi).fold(
-        0,
-        |a, b| a + b as u64,
-    )
+    prime::all()
+        .take_while(|&p| p < hi)
+        .fold(0, |a, b| a + b as u64)
 }

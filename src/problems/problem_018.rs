@@ -1,4 +1,4 @@
-use util::triangle::Triangle;
+use crate::util::triangle::Triangle;
 use std::cmp::max;
 
 pub fn solve(t0: Triangle<i32>) -> i32 {

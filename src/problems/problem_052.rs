@@ -1,4 +1,4 @@
-use util::math::Digits;
+use crate::util::math::Digits;
 
 pub fn solve(consecutive: usize) -> u32 {
     // Find the smallest `n` such that [1*n, 2*n, ..., `consecutive` * n] all have the same digits

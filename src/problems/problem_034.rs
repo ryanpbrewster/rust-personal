@@ -1,4 +1,4 @@
-use util::math::Digits;
+use crate::util::math::Digits;
 
 pub fn solve() -> u32 {
     // Consider f(99_999_999) == 8 * 9! == 2_903_040, so no 8-digit number

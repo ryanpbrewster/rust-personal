@@ -1,4 +1,4 @@
-use util::coins;
+use crate::util::coins;
 use std::collections::HashSet;
 
 pub fn solve(n: usize) -> u32 {

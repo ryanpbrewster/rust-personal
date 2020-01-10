@@ -1,4 +1,4 @@
-use util::iter::Group;
+use crate::util::iter::Group;
 
 pub mod checks;
 pub mod iter;
@@ -15,7 +15,6 @@ pub fn test(n: u64) -> bool {
 pub fn factors(n: u64) -> Factors {
     Factors { n: n, lo: 2 }
 }
-
 
 pub fn sieve(hi: usize) -> Vec<bool> {
     let mut is_prime_vec: Vec<bool> = vec![true; hi];
@@ -57,10 +56,9 @@ impl Iterator for Factors {
 }
 
 pub fn num_divisors(n: u64) -> u32 {
-    Group::of(factors(n)).map(|(_, k)| k + 1).fold(
-        1,
-        |a, b| a * b,
-    ) as u32
+    Group::of(factors(n))
+        .map(|(_, k)| k + 1)
+        .fold(1, |a, b| a * b) as u32
 }
 
 #[cfg(test)]

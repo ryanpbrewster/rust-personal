@@ -1,4 +1,4 @@
-use util::math::pythag::Triple;
+use crate::util::math::pythag::Triple;
 use std::collections::VecDeque;
 
 #[test]

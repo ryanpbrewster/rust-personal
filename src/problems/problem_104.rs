@@ -1,4 +1,4 @@
-use util::math::recurrence::ModFibSeq;
+use crate::util::math::recurrence::ModFibSeq;
 use num::Float;
 
 /*
@@ -53,16 +53,14 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
-    use util::math::recurrence::BigFibSeq;
+    use crate::util::math::recurrence::BigFibSeq;
 
     #[test]
     fn small() {
         assert_eq!(
             BigFibSeq::new()
                 .enumerate()
-                .find(|&(_, ref n)| {
-                    is_pandigital(n.to_string().chars().rev().take(9))
-                })
+                .find(|&(_, ref n)| { is_pandigital(n.to_string().chars().rev().take(9)) })
                 .map(|(k, _)| k)
                 .unwrap(),
             541
@@ -71,9 +69,7 @@ mod test {
         assert_eq!(
             BigFibSeq::new()
                 .enumerate()
-                .find(|&(_, ref n)| {
-                    is_pandigital(n.to_str_radix(10).chars().take(9))
-                })
+                .find(|&(_, ref n)| { is_pandigital(n.to_str_radix(10).chars().take(9)) })
                 .map(|(k, _)| k)
                 .unwrap(),
             2749

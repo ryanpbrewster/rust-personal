@@ -1,5 +1,5 @@
-use test::Bencher;
 use project_euler::util::prime;
+use test::Bencher;
 
 use rand::{Rng, SeedableRng, XorShiftRng};
 

@@ -17,7 +17,11 @@ fn f(n: usize) -> usize {
 
 fn f_inverse(p: usize) -> Option<usize> {
     let n: usize = (1.0 / 6.0 * (1.0 + (24.0 * p as f64 + 1.0).sqrt())) as usize;
-    if f(n) == p { Some(n) } else { None }
+    if f(n) == p {
+        Some(n)
+    } else {
+        None
+    }
 }
 
 #[test]

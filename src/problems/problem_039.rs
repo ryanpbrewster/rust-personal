@@ -1,4 +1,4 @@
-use util::math::pythag;
+use crate::util::math::pythag;
 
 // Find the value, p <= hi, for which the most pythagorean triples
 // exist that satisfy a + b + c == p

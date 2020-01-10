@@ -11,8 +11,8 @@ Find the sum of all the numbers less than 10^8 that are both palindromic and can
 be written as the sum of consecutive squares.
 */
 
+use crate::util::math::Digits;
 use std::collections::HashSet;
-use util::math::Digits;
 
 pub fn solve(bound: u32) -> u64 {
     let squares: Vec<u32> = (1..).map(|n| n * n).take_while(|&n| n < bound).collect();

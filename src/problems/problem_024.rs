@@ -1,4 +1,4 @@
-use util::math;
+use crate::util::math;
 
 pub fn solve<T: Clone>(xs: Vec<T>, n: u64) -> Vec<T> {
     let n = n % math::factorial(xs.len() as u64);

@@ -1,6 +1,6 @@
-use std::ops::Mul;
-use num::{BigUint, One, Zero};
 use num;
+use num::{BigUint, One, Zero};
+use std::ops::Mul;
 
 pub struct ModFibSeq {
     a: u64,

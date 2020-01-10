@@ -1,4 +1,4 @@
-use util::prime;
+use crate::util::prime;
 
 #[test]
 fn small() {

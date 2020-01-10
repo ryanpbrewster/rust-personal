@@ -87,15 +87,13 @@ fn component_value(ch: char) -> u32 {
     }
 }
 
-
-
 #[cfg(test)]
 mod test {
     use super::*;
-    use std::fs::File;
-    use std::path::Path;
-    use std::io::{BufRead, BufReader};
     use rand::{Rng, SeedableRng, XorShiftRng};
+    use std::fs::File;
+    use std::io::{BufRead, BufReader};
+    use std::path::Path;
 
     #[test]
     fn encode_numeral_manual() {

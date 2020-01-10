@@ -1,5 +1,5 @@
+use crate::util::grid::Grid;
 use std::cmp;
-use util::grid::Grid;
 
 pub fn solve(grid: &Grid<u32>) -> u32 {
     let mut dp = grid.clone();

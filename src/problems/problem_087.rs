@@ -12,7 +12,7 @@ How many numbers below fifty million can be expressed as the sum of a prime
 square, prime cube, and prime fourth power?
 */
 
-use util::prime;
+use crate::util::prime;
 
 // Count how many numbers `n < hi` can be expressed as the sum of a prime
 // square + prime cube + prime 4th?

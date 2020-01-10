@@ -15,8 +15,8 @@
 // Given that L is the length of the wire, for how many values of L ≤ 1,500,000
 // can exactly one integer sided right angle triangle be formed?
 
+use crate::util::math::pythag;
 use std::collections::VecDeque;
-use util::math::pythag;
 
 pub fn solve(bound: usize) -> usize {
     let mut xs = vec![0; bound];

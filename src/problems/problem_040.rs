@@ -1,4 +1,4 @@
-use util::math::Digits;
+use crate::util::math::Digits;
 
 pub struct Champernowne {
     n: u32,

@@ -7,20 +7,20 @@ pub fn solve(num_turns: usize) -> u32 {
         g.play_one();
     }
 
-    let total: BigUint = g.blue_count_ways.iter().fold(
-        BigUint::zero(),
-        |acc, x| acc + x,
-    );
+    let total: BigUint = g
+        .blue_count_ways
+        .iter()
+        .fold(BigUint::zero(), |acc, x| acc + x);
 
     let blues_to_win = num_turns / 2 + 1;
-    let winning: BigUint = g.blue_count_ways[blues_to_win..].iter().fold(
-        BigUint::zero(),
-        |acc, x| acc + x,
-    );
+    let winning: BigUint = g.blue_count_ways[blues_to_win..]
+        .iter()
+        .fold(BigUint::zero(), |acc, x| acc + x);
 
-    total.div_floor(&winning).to_u32().expect(
-        "i hope that this fits into a u32",
-    )
+    total
+        .div_floor(&winning)
+        .to_u32()
+        .expect("i hope that this fits into a u32")
 }
 
 struct GameState {
@@ -53,8 +53,8 @@ impl GameState {
             // To get `i` blue discs we can either:
             //   - start with `i-1` and pick blue
             //   - start with `i` and pick red
-            let ways_i = &prev[i - 1] * BigUint::from(self.blue_discs) +
-                &prev[i] * BigUint::from(self.red_discs);
+            let ways_i = &prev[i - 1] * BigUint::from(self.blue_discs)
+                + &prev[i] * BigUint::from(self.red_discs);
             self.blue_count_ways[i] = ways_i;
         }
 

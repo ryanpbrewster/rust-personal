@@ -3,10 +3,11 @@ use std::collections::HashMap;
 // Compute the maximum sum of edge weights that can be removed while keeping the graph connected
 pub fn solve(matrix: HashMap<(usize, usize), i32>) -> i32 {
     let total_weight = matrix.values().sum::<i32>() / 2; // the adjacency matrix is symmetric
-    let num_vertices = 1 +
-        matrix.keys().map(|&(i, _)| i).max().expect(
-            "The matrix passed into solve() must be non-empty",
-        );
+    let num_vertices = 1 + matrix
+        .keys()
+        .map(|&(i, _)| i)
+        .max()
+        .expect("The matrix passed into solve() must be non-empty");
 
     let mut edges: Vec<((usize, usize), i32)> = matrix.into_iter().collect();
     edges.sort_by_key(|&(_, weight)| weight);
@@ -29,7 +30,9 @@ struct UnionFind {
 
 impl UnionFind {
     fn new(size: usize) -> UnionFind {
-        UnionFind { parent: (0..size).collect() }
+        UnionFind {
+            parent: (0..size).collect(),
+        }
     }
 
     fn find(&mut self, i: usize) -> usize {
@@ -56,9 +59,9 @@ impl UnionFind {
 mod test {
     use super::*;
 
-    use std::path::Path;
     use std::fs::File;
     use std::io::{Error, Read};
+    use std::path::Path;
     use std::str::FromStr;
 
     pub fn parse_matrix(path: &Path) -> Result<HashMap<(usize, usize), i32>, Error> {

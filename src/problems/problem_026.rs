@@ -1,4 +1,4 @@
-use util::math::Decimals;
+use crate::util::math::Decimals;
 
 pub fn solve(hi: u32) -> u32 {
     (2..hi)

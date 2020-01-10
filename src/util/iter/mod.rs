@@ -41,7 +41,6 @@ where
     }
 }
 
-
 fn both<T>(x: Option<T>, y: Option<T>) -> Option<(T, T)> {
     match (x, y) {
         (Some(x0), Some(y0)) => Some((x0, y0)),
@@ -80,10 +79,6 @@ impl<T: Ord, X: Iterator<Item = T>, Y: Iterator<Item = T>> Iterator for Intersec
         None
     }
 }
-
-
-
-
 
 pub struct Group<S: Iterator> {
     source: S,

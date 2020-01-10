@@ -52,7 +52,6 @@ fn subsets<T: Clone>(universe: &[T], size: usize) -> Vec<Vec<T>> {
         };
         use_it.into_iter().chain(lose_it).collect()
     }
-
 }
 
 fn score(xs: &[i32]) -> u32 {
@@ -61,7 +60,6 @@ fn score(xs: &[i32]) -> u32 {
     explore(&mut vis, &vs);
     (1..).take_while(|&i| vis.contains(&i)).count() as u32
 }
-
 
 enum Op {
     Add,
@@ -104,7 +102,8 @@ fn explore(vis: &mut HashSet<i32>, vs: &[f64]) {
     } else {
         for i in 0..vs.len() {
             for j in i + 1..vs.len() {
-                let xs: Vec<f64> = vs.iter()
+                let xs: Vec<f64> = vs
+                    .iter()
                     .cloned()
                     .enumerate()
                     .filter(|&(idx, _)| idx != i && idx != j)
@@ -115,7 +114,6 @@ fn explore(vis: &mut HashSet<i32>, vs: &[f64]) {
                     ys.push(op.apply(vs[i], vs[j]));
                     explore(vis, &ys);
                 }
-
             }
         }
     }
