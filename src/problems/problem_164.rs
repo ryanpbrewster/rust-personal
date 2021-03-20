@@ -4,12 +4,12 @@ consecutive digits of n have a sum greater than 9?
 */
 
 pub fn solve(num_digits: usize) -> u64 {
-    let mut tallies: [u64; 100] = [0; 100];
+    let mut tallies: Vec<u64> = vec![0; 100];
     for d in 1..10 {
         tallies[d] = 1;
     }
     for _ in 1..num_digits {
-        let mut tmp = [0; 100];
+        let mut tmp = vec![0; 100];
         for d0 in 0..10 {
             for d1 in 0..10 - d0 {
                 for d2 in 0..10 - d0 - d1 {

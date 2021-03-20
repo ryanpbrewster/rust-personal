@@ -128,7 +128,7 @@ mod test {
     fn encode_decode_bijection() {
         let mut prng = rand_pcg::Pcg32::seed_from_u64(42);
         for _ in 0..1000 {
-            let n = prng.gen_range(1, 10_000);
+            let n = prng.gen_range(1..10_000);
             assert_eq!(decode_numeral(&encode_numeral(n)), n);
         }
     }
